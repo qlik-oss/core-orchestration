@@ -1,0 +1,17 @@
+replicaCount: 1
+miraMode: kubernetes
+image:
+  repository: qlikea/mira
+  tag: 0.0.2-368
+  imagePullSecrets: dockerhub
+  pullPolicy: IfNotPresent
+  sidecartcontainerName: kubectl
+  sidecartcontainerArgs: "[ \"proxy\", \"-p\", \"8001\" ]"
+  sidecartcontainerImage: gcr.io/google_containers/kubectl:v0.18.0-350-gfb3305edcf6c1a
+service:
+  name: http
+  type: NodePort
+  externalPort: 9100
+  internalPort: 9100
+
+restartPolicy: Never

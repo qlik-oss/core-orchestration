@@ -1,0 +1,7 @@
+apiVersion: v1
+description: Core Frontira components
+name: frontira
+version: 0.1.0
+home: https://github.com/qlik-ea/core
+sources:
+  - https://github.com/qlik-ea/core

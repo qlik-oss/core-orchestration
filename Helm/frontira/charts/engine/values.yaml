@@ -1,0 +1,15 @@
+replicaCount: 2
+image:
+  repository: qlikea/engine
+  tag: 12.59.0
+  imagePullSecrets: dockerhub
+  pullPolicy: IfNotPresent
+service:
+  name: qix
+  promName: prometheus
+  type: NodePort
+  externalPort: 9076
+  internalPort: 9076
+  prometheusPort: 9090
+
+restartPolicy: Never
