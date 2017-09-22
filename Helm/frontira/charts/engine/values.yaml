@@ -7,7 +7,7 @@ image:
 service:
   name: qix
   promName: prometheus
-  type: NodePort
+  type: LoadBalancer
   externalPort: 9076
   internalPort: 9076
   prometheusPort: 9090

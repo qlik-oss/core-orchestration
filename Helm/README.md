@@ -16,4 +16,3 @@ kubectl create secret docker-registry dockerhub --docker-username=<your-name> --
 ```bash
 helm install ./frontira/
 ```
-

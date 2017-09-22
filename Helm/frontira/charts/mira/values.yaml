@@ -10,7 +10,7 @@ image:
   sidecartcontainerImage: gcr.io/google_containers/kubectl:v0.18.0-350-gfb3305edcf6c1a
 service:
   name: http
-  type: NodePort
+  type: LoadBalancer
   externalPort: 9100
   internalPort: 9100
 
