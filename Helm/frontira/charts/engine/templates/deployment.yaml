@@ -22,9 +22,9 @@ spec:
       containers:
       - name: {{ .Chart.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        imagePullPolicy: {{ .Values.global.imagePullPolicy }}
         ports:
         - containerPort: {{ .Values.service.internalPort }}
         - containerPort: {{ .Values.service.prometheusPort }}
       imagePullSecrets:
-      - name: {{ .Values.image.imagePullSecrets }}
+      - name: {{ .Values.global.imagePullSecrets }}

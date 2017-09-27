@@ -1,1 +1,8 @@
-Congratulations you have now deployed the Frontira stack
+You have now deployed the Frontira stack.
+
+Your release is named: {{ .Release.Name }}.
+
+To learn more about the release, try:
+
+  $ helm status {{ .Release.Name }}
+  $ helm get {{ .Release.Name }}
