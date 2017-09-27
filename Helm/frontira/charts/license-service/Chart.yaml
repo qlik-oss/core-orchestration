@@ -1,0 +1,7 @@
+apiVersion: v1
+description: License Service
+name: license-service
+version: 0.1.0
+home: https://github.com/qlik-trial/license-service
+sources:
+  - https://github.com/qlik-trial/license-service

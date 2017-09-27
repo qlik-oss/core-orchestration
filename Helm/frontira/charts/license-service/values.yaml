@@ -1,0 +1,9 @@
+replicaCount: 1
+image:
+  repository: qlik/license-service
+  tag: 0.0.1-314
+service:
+  name: http
+  externalPort: 5050
+  internalPort: 5050
+restartPolicy: Never
