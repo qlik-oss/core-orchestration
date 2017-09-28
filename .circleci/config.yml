@@ -48,7 +48,7 @@ jobs:
           command: sudo kubectl create secret docker-registry dockerhub --docker-username=$DOCKER_USER  --docker-password=$DOCKER_PASSWORD --docker-email="qlikeabuild@qlik.com"
       - run:
           name: Helm init
-          command: sudo helm init --debug
+          command: sudo helm init --debug; sudo kubectl rollout status -w deployment/tiller-deploy --namespace=kube-system;
       - run:
           name: Helm install frontira
           command: sudo helm install ./Helm/frontira
