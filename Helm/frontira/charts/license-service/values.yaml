@@ -1,6 +1,6 @@
 replicaCount: 1
 image:
-  repository: qlik/license-service
+  repository: qlikea/license-service
   tag: 0.0.1-314
 service:
   name: http
