@@ -1,0 +1,21 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/golang:1.9
+    working_directory: ~/core
+    steps:
+      - checkout
+      - run:
+          name: Install Helm
+          command: |
+            curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get > get_helm.sh
+            chmod 700 get_helm.sh
+            ./get_helm.sh
+      - run:
+          name: Lint charts
+          command: |
+            helm lint ./Helm/frontira
+            helm lint ./Helm/frontira/charts/engine
+            helm lint ./Helm/frontira/charts/mira
+            helm lint ./Helm/frontira/charts/license-service
