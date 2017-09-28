@@ -1,0 +1,5 @@
+global:
+  imagePullPolicy: IfNotPresent
+  imagePullSecrets: dockerhub
+  # Set serviceType to NodePort if running in minikube
+  serviceType: LoadBalancer
