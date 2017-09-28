@@ -1,13 +1,14 @@
 replicaCount: 1
 miraMode: kubernetes
-image:
-  repository: qlikea/mira
-  tag: 0.0.2-396
-  sideCartContainerName: kubectl
-  sideCartContainerArgs: "[ \"proxy\", \"-p\", \"8001\" ]"
-  sideCartContainerImage: gcr.io/google_containers/kubectl:v0.18.0-350-gfb3305edcf6c1a
+image: qlikea/mira
+imageTag: 0.0.2-396
+sideCartContainerName: kubectl
+sideCartContainerArgs: "[ \"proxy\", \"-p\", \"8001\" ]"
+sideCartContainerImage: gcr.io/google_containers/kubectl:v0.18.0-350-gfb3305edcf6c1a
 service:
   name: http
   externalPort: 9100
   internalPort: 9100
 restartPolicy: Never
+global:
+  serviceType: NodePort

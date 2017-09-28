@@ -1,11 +1,12 @@
 replicaCount: 2
-image:
-  repository: qlikea/engine
-  tag: 12.59.0
+image: qlikea/engine
+imageTag: 12.59.0
 service:
   name: qix
-  promName: prometheus
   externalPort: 9076
   internalPort: 9076
+  promName: prometheus
   prometheusPort: 9090
 restartPolicy: Never
+global:
+  serviceType: NodePort

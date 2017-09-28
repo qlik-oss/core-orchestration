@@ -17,16 +17,16 @@ spec:
     spec:
       containers:
       - name: {{ .Chart.Name }}
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        image: "{{ .Values.image }}:{{ .Values.imageTag }}"
         imagePullPolicy: {{ .Values.global.imagePullPolicy }}
         ports:
-        - containerPort: {{ .Values.service.internalPort }}
+        - containerPort: {{ default 9100 .Values.service.internalPort }}
         env:
         - name: MIRA_MODE
           value: {{default "kubernetes" .Values.miraMode}}
-      - name: {{ .Values.image.sideCartContainerName }}
-        image: {{ .Values.image.sideCartContainerImage }}      
-        args: {{ .Values.image.sideCartContainerArgs }}
+      - name: {{ .Values.sideCartContainerName }}
+        image: {{ .Values.sideCartContainerImage }}      
+        args: {{ .Values.sideCartContainerArgs }}
         imagePullPolicy: {{ .Values.global.imagePullPolicy }}        
       imagePullSecrets:
       - name: {{ .Values.global.imagePullSecrets }}
