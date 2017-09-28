@@ -1,8 +1,9 @@
 version: 2
 jobs:
   build:
-    docker:
-      - image: circleci/golang:1.9
+    machine: true
+    environment:
+      CHANGE_MINIKUBE_NONE_USER: true
     working_directory: ~/core
     steps:
       - checkout
@@ -19,3 +20,35 @@ jobs:
             helm lint ./Helm/frontira/charts/engine
             helm lint ./Helm/frontira/charts/mira
             helm lint ./Helm/frontira/charts/license-service
+      - run:
+          name: Install Kubernetes
+          command: |
+            curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/v1.7.0/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
+      - run:
+          name: Install Minikube
+          command: |
+            curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
+      - run:
+          name: Start Minikube
+          command: |
+            sudo minikube start --vm-driver=none --kubernetes-version=v1.7.0
+            sudo minikube update-context
+      - run:
+          name: Install socat (needed by helm)
+          command: sudo apt-get update && sudo apt-get install socat
+      - run:
+          name: Install nsenter (needed by helm)
+          command: |
+            cd /tmp; curl https://www.kernel.org/pub/linux/utils/util-linux/v2.25/util-linux-2.25.tar.gz | tar -zxf-; cd util-linux-2.25;
+            sudo apt-get install autopoint autoconf libtool automake
+            ./configure --without-python --disable-all-programs --enable-nsenter --without-ncurses
+            sudo make nsenter; sudo cp nsenter /usr/local/bin
+      - run:
+          name: Add docker credentials as kubernetes secret
+          command: sudo kubectl create secret docker-registry dockerhub --docker-username=$DOCKER_USER  --docker-password=$DOCKER_PASSWORD
+      - run:
+          name: Helm init
+          command: sudo helm init --debug
+      - run:
+          name: Helm install frontira
+          command: sudo helm install ./Helm/frontira
