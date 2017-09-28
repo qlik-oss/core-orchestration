@@ -10,8 +10,8 @@ metadata:
 spec:
   type: {{ .Values.global.serviceType }}
   ports:
-    - port: {{ .Values.service.externalPort }}
-      targetPort: {{ .Values.service.internalPort }}
+    - port: {{ default 5050 .Values.service.externalPort }}
+      targetPort: {{ default 5050 .Values.service.internalPort }}
       protocol: TCP
       name: {{ .Values.service.name }}
   selector:

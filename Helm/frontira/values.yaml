@@ -3,3 +3,17 @@ global:
   imagePullSecrets: dockerhub
   # Set serviceType to NodePort if running in minikube
   serviceType: LoadBalancer
+
+engine:
+  image: qlikea/engine
+  imageTag: 12.66.0
+
+license-service:
+  image: qlikea/license-service
+  imageTag: 0.0.1-314
+
+mira:
+  image: qlikea/mira
+  imageTag: 0.0.2-396
+  sideCartContainerName: kubectl
+  sideCartContainerImage: gcr.io/google_containers/kubectl:v0.18.0-350-gfb3305edcf6c1a
