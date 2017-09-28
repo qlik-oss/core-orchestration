@@ -10,7 +10,7 @@ engine:
 
 license-service:
   image: qlikea/license-service
-  imageTag: 0.0.1-314
+  imageTag: 0.0.1-332
 
 mira:
   image: qlikea/mira
