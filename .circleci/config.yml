@@ -45,7 +45,7 @@ jobs:
             sudo make nsenter; sudo cp nsenter /usr/local/bin
       - run:
           name: Add docker credentials as kubernetes secret
-          command: sudo kubectl create secret docker-registry dockerhub --docker-username=$DOCKER_USER  --docker-password=$DOCKER_PASSWORD --docker-email="qlikeabuild@qlik.com"
+          command: sudo kubectl create secret docker-registry dockerhub --docker-username=$DOCKER_USER  --docker-password=$DOCKER_PASSWORD --docker-email=$DOCKER_EMAIL
       - run:
           name: Helm init and wait for tiller to be running
           command: sudo helm init --debug; sudo kubectl rollout status -w deployment/tiller-deploy --namespace=kube-system;
