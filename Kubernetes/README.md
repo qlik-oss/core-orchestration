@@ -1,6 +1,4 @@
-# Deploying Frontira to your Kubernetes cluster
-
-## Prerequisites
+## Prerequisites for deploying to Kubernetes
 
 ### Kubernetes
 You will need a Kubernetes enviroment. 
@@ -13,8 +11,8 @@ To add a secret to Kubernetes:
 kubectl create secret docker-registry dockerhub --docker-username=<your-name> --docker-password=<your-password> --docker-email=<your-email>
 ```
 
-## Deploy Frontira
+## Choose deployment type
 
-```
-kubectl create -f ./frontira/
-```
+### [Helm](Kubernetes/Helm/README.md)
+
+### [Plain](Kubernetes/Plain/README.md)
