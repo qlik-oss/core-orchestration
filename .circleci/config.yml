@@ -61,4 +61,21 @@ jobs:
             # Check license service health
             LICENSE_SERVICE_URL=$(sudo minikube service test-license-service --url)
             curl -fs "$LICENSE_SERVICE_URL/v1/health"
-
+      - run:
+          name: Helm delete frontira
+          command: sudo helm delete test --debug
+      - run:
+          name: Kubernetes plain frontira
+          command: sudo kubectl create -f ./Kubernetes/Plain/frontira/
+      - run:
+          name: Check health of services
+          command: |
+            # Check mira health
+            MIRA_URL=$(sudo minikube service mira --url)
+            curl -fs "$MIRA_URL/v1/health"
+            # Check license service health
+            LICENSE_SERVICE_URL=$(sudo minikube service license-service --url)
+            curl -fs "$LICENSE_SERVICE_URL/v1/health"
+      - run:
+          name: Kubernetes delete frontira
+          command: sudo kubectl delete -f ./Kubernetes/Plain/frontira/
