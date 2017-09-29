@@ -16,10 +16,10 @@ jobs:
       - run:
           name: Lint charts
           command: |
-            helm lint ./Helm/frontira
-            helm lint ./Helm/frontira/charts/engine
-            helm lint ./Helm/frontira/charts/mira
-            helm lint ./Helm/frontira/charts/license-service
+            helm lint ./Kubernetes/Helm/frontira
+            helm lint ./Kubernetes/Helm/frontira/charts/engine
+            helm lint ./Kubernetes/Helm/frontira/charts/mira
+            helm lint ./Kubernetes/Helm/frontira/charts/license-service
       - run:
           name: Install Kubectl
           command: |
@@ -51,7 +51,7 @@ jobs:
           command: sudo helm init --debug; sudo kubectl rollout status -w deployment/tiller-deploy --namespace=kube-system;
       - run:
           name: Helm install frontira
-          command: sudo helm install ./Helm/frontira --set global.setType=NodePort --name test --debug
+          command: sudo helm install ./Kubernetes/Helm/frontira --set global.setType=NodePort --name test --debug
       - run:
           name: Check health of services
           command: |
