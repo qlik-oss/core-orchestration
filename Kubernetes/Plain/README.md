@@ -1,6 +1,6 @@
 ## Prerequisites
 
-Make sure you have followed the prerequisites from [Deploy with Kubernetes](Kubernetes/README.md)
+Make sure you have followed the prerequisites from [Deploy with Kubernetes](../README.md)
 
 ## Deploy Frontira
 

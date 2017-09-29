@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-Make sure you have followed the prerequisites from [Deploy with Kubernetes](Kubernetes/README.md)
+Make sure you have followed the prerequisites from [Deploy with Kubernetes](../README.md)
 
 ### Helm
 You will need [Helm](https://helm.sh/) installed on the client side and Tiller installed in the Kubernetes cluster. To enable Tiller follow this [Guide](https://docs.helm.sh/using_helm/#initialize-helm-and-install-tiller)
