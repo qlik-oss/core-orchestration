@@ -51,4 +51,14 @@ jobs:
           command: sudo helm init --debug; sudo kubectl rollout status -w deployment/tiller-deploy --namespace=kube-system;
       - run:
           name: Helm install frontira
-          command: sudo helm install ./Helm/frontira --debug
+          command: sudo helm install ./Helm/frontira --set global.setType=NodePort --name test --debug
+      - run:
+          name: Check health of services
+          command: |
+            # Check mira health
+            MIRA_URL=$(sudo minikube service test-mira --url)
+            curl -fs "$MIRA_URL/v1/health"
+            # Check license service health
+            LICENSE_SERVICE_URL=$(sudo minikube service test-license-service --url)
+            curl -fs "$LICENSE_SERVICE_URL/v1/health"
+
