@@ -13,6 +13,6 @@ kubectl create secret docker-registry dockerhub --docker-username=<your-name> --
 
 ## Choose deployment type
 
-### [Helm](Kubernetes/Helm/README.md)
+### [Helm](/Helm/README.md)
 
-### [Plain](Kubernetes/Plain/README.md)
+### [Plain](/Plain/README.md)
