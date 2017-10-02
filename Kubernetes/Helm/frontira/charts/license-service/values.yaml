@@ -3,8 +3,8 @@ image: qlikea/license-service
 imageTag: 0.0.1-314
 service:
   name: http
-  externalPort: 5050
-  internalPort: 5050
+  externalPort: 9200
+  internalPort: 9200
 restartPolicy: Never
 global:
   serviceType: NodePort
