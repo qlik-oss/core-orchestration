@@ -5,3 +5,6 @@
 
 ## Kubernetes
 [Deploy with Kubernetes](Kubernetes/)
+
+## Docker Swarm
+[Deploy with Docker Swarm](Docker-swarm/)
