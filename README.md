@@ -4,4 +4,4 @@
 
 
 ## Kubernetes
-[Deploy with Kubernetes](Kubernetes/README.md)
+[Deploy with Kubernetes](Kubernetes/)
