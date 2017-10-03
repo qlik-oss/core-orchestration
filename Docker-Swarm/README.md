@@ -10,6 +10,12 @@ Since the images being used is private you have to pass your Docker credentials 
 
 ## Deploy
 
+Make sure you have set your docker cli to execute at your swarm cluster with 
+```
+eval $(docker-machine env <Your Swarm manager node>)
+```
+
+Then deploy the stack with the following command:
 ```
 docker stack deploy -c ./docker-compose.yml --with-registry-auth frontira
 ```

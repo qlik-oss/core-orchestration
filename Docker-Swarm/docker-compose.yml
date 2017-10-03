@@ -1,4 +1,4 @@
-version: "3.3"
+version: "3.0"
 
 services:
   mira:
@@ -26,11 +26,6 @@ services:
       - 9090:9090
     labels:
       qix-engine: ""
-      qix-engine-port: "9076"
-    deploy:
-      mode: global
-      placement:
-        constraints: [node.role == worker]
 
   license-service:
     # License service is used to valiate a license and to unlock the QIX Engine service.
