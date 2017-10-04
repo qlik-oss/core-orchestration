@@ -5,7 +5,7 @@ If you would like to setup a local enviroment follow this guide: [Install Docker
 ### Secrets
 Since the images being used is private you have to pass your Docker credentials when you deploy the stack. This is done by adding 
 ```
---with-registry-aut
+--with-registry-auth
 ```
 
 ## Deploy
