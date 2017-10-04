@@ -20,6 +20,6 @@ spec:
         image: "{{ .Values.image }}:{{ .Values.imageTag }}"
         imagePullPolicy: {{ .Values.global.imagePullPolicy }}
         ports:
-        - containerPort: {{ default 5050 .Values.service.internalPort }}      
+        - containerPort: {{ default 9200 .Values.service.internalPort }}      
       imagePullSecrets:
       - name: {{ .Values.global.imagePullSecrets }}
