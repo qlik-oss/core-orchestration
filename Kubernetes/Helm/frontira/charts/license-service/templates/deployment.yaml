@@ -23,4 +23,3 @@ spec:
         - containerPort: {{ default 9200 .Values.service.internalPort }}      
       imagePullSecrets:
       - name: {{ .Values.global.imagePullSecrets }}
-      restartPolicy: {{ .Values.global.restartPolicy}}

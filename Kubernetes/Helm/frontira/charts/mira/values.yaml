@@ -11,4 +11,3 @@ service:
   internalPort: 9100
 global:
   serviceType: NodePort
-  restartPolicy: Never

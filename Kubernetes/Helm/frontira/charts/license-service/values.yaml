@@ -1,10 +1,9 @@
 replicaCount: 1
 image: qlikea/license-service
-imageTag: 0.0.1-345
+imageTag: 0.0.1-361
 service:
   name: http
   externalPort: 9200
   internalPort: 9200
 global:
   serviceType: NodePort
-  restartPolicy: Never

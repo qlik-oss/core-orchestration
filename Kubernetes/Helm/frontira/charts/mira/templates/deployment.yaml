@@ -30,4 +30,3 @@ spec:
         imagePullPolicy: {{ .Values.global.imagePullPolicy }}        
       imagePullSecrets:
       - name: {{ .Values.global.imagePullSecrets }}
-      restartPolicy: {{ .Values.global.restartPolicy}}

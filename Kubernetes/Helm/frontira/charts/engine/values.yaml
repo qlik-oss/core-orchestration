@@ -9,4 +9,3 @@ service:
   prometheusPort: 9090
 global:
   serviceType: NodePort
-  restartPolicy: Never
