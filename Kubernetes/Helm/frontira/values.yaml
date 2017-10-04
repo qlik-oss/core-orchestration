@@ -1,5 +1,6 @@
 global:
   imagePullPolicy: IfNotPresent
+  restartPolicy: Never
   imagePullSecrets: dockerhub
   # Set serviceType to NodePort if running in minikube
   serviceType: LoadBalancer
@@ -10,7 +11,7 @@ engine:
 
 license-service:
   image: qlikea/license-service
-  imageTag: 0.0.1-345
+  imageTag: 0.0.1-361
 
 mira:
   image: qlikea/mira

@@ -29,6 +29,6 @@ services:
 
   license-service:
     # License service is used to valiate a license and to unlock the QIX Engine service.
-    image: qlikea/license-service:0.0.1-345
+    image: qlikea/license-service:0.0.1-361
     ports:
       - 9200:9200

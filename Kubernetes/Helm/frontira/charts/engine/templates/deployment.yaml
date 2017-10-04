@@ -28,3 +28,4 @@ spec:
         - containerPort: {{ .Values.service.prometheusPort }}
       imagePullSecrets:
       - name: {{ .Values.global.imagePullSecrets }}
+      restartPolicy: {{ .Values.global.restartPolicy}}

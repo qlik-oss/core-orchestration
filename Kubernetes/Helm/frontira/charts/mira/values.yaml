@@ -9,6 +9,6 @@ service:
   name: http
   externalPort: 9100
   internalPort: 9100
-restartPolicy: Never
 global:
   serviceType: NodePort
+  restartPolicy: Never
