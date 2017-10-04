@@ -1,6 +1,8 @@
 version: 2
 jobs:
-  build:
+
+  # Job for testing helm and plain kubernetes deployment of core
+  kubernetes:
     machine: true
     environment:
       CHANGE_MINIKUBE_NONE_USER: true
@@ -79,3 +81,49 @@ jobs:
       - run:
           name: Kubernetes delete frontira
           command: sudo kubectl delete -f ./Kubernetes/Plain/frontira/
+
+  # Job for testing docker swarm deployment of core
+  swarm:
+    machine: true
+    working_directory: ~/core
+    steps:
+      - checkout
+      - run:
+          name: Login to Docker
+          command: docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD"
+      - run:
+          name: Spin up core in a local docker swarm
+          command: |
+            docker swarm init
+            docker stack deploy -c ./Docker-Swarm/docker-compose.yml --with-registry-auth core
+      - run:
+          name: Wait for docker swarm to be up and running
+          command: |
+            echo "Waiting for Swarm to wake up..."
+            SWARM_IS_DOWN="true"
+
+            while [ "$SWARM_IS_DOWN" == "true" ]; do
+              SWARM_IS_DOWN=$(curl http://localhost:9100/v1/health -s -f -o /dev/null || echo "true")
+              sleep 1
+            done
+
+            echo "Swarm is up and running!"
+      - run:
+          name: Check health of services
+          command: |
+            # Check mira health
+            curl -fs http://localhost:9100/v1/health
+            # Check license service health
+            curl -fs http://localhost:9200/v1/health
+      - run:
+          name: Remove deployment and leave swarm
+          command: |
+            docker stack rm core
+            docker swarm leave --force
+
+workflows:
+  version: 2
+  kubernetes_and_swarm:
+    jobs:
+      - kubernetes
+      - swarm
