@@ -96,7 +96,18 @@ jobs:
           command: |
             docker swarm init
             docker stack deploy -c ./Docker-Swarm/docker-compose.yml --with-registry-auth core
-            sleep 60 # Sleep for 60 seconds to let the services start
+      - run:
+          name: Wait for docker swarm to be up and running
+          command: |
+            echo "Waiting for Swarm to wake up..."
+            SWARM_IS_DOWN="true"
+
+            while [ "$SWARM_IS_DOWN" == "true" ]; do
+              SWARM_IS_DOWN=$(curl http://localhost:9100/v1/health -s -f -o /dev/null || echo "true")
+              sleep 1
+            done
+
+            echo "Swarm is up and running!"
       - run:
           name: Check health of services
           command: |
