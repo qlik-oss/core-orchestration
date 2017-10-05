@@ -37,7 +37,9 @@ jobs:
             sudo minikube update-context
       - run:
           name: Install socat (needed by helm)
-          command: sudo apt-get install socat
+          command: |
+            sudo apt-get update
+            sudo apt-get install socat
       - run:
           name: Install nsenter (needed by helm)
           command: |
