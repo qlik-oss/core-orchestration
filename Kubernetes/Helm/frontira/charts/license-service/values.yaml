@@ -1,6 +1,5 @@
 replicaCount: 1
-image: qlikea/license-service
-imageTag: 0.0.1-361
+image: qlikea/license-service:0.0.1-361
 service:
   name: http
   externalPort: 9200
