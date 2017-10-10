@@ -145,6 +145,8 @@ jobs:
           command: |
             # Let the nomad agent have some time to start
             sleep 5
+
+            # Deploy services
             sudo nomad run ./Nomad/mira.nomad
             sudo nomad run ./Nomad/license-service.nomad
             sudo nomad run ./Nomad/engine.nomad
@@ -169,7 +171,7 @@ jobs:
             NBR_ENGINES=$(curl "$MIRA_URL/v1/engines" | grep -o \"qix-engine\" | wc -w)
             echo "Mira returned $NBR_ENGINES qix engines"
 
-            if [ "$NBR_ENGINES" != "2"]; then
+            if [ "$NBR_ENGINES" != "2" ]; then
               echo "Incorrect number of qix engines found"
               exit 1
             fi
