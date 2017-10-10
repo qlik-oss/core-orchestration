@@ -123,7 +123,7 @@ jobs:
             docker stack rm core
             docker swarm leave --force
 
-  # Job for nomad deployment of core
+  # Job for testing nomad deployment of core
   nomad:
     machine: true
     working_directory: ~/core
