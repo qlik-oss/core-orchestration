@@ -8,3 +8,6 @@
 
 ## Docker Swarm
 [Deploy with Docker Swarm](Docker-swarm/)
+
+## Nomad
+[Deploy with Nomad](Nomad/)

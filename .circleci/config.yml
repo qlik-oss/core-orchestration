@@ -123,9 +123,61 @@ jobs:
             docker stack rm core
             docker swarm leave --force
 
+  # Job for nomad deployment of core
+  nomad:
+    machine: true
+    working_directory: ~/core
+    steps:
+      - checkout
+      - run:
+          name: Login to Docker
+          command: docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD"
+      - run:
+          name: Install Nomad
+          command: |
+            curl -Lo nomad.zip https://releases.hashicorp.com/nomad/0.6.3/nomad_0.6.3_linux_amd64.zip && unzip nomad.zip && chmod +x nomad && sudo mv nomad /usr/local/bin/
+      - run:
+          name: Start Nomad server
+          command: sudo nomad agent -dev -config=./Nomad/nomad.hcl
+          background: true
+      - run:
+          name: Deploy Core to Nomad
+          command: |
+            # Let the nomad agent have some time to start
+            sleep 5
+            sudo nomad run ./Nomad/mira.nomad
+            sudo nomad run ./Nomad/license-service.nomad
+            sudo nomad run ./Nomad/engine.nomad
+
+            # Let the containers have some time to start
+            sleep 10
+      - run:
+          name: Check health of Core services
+          command: |
+           # Find IP address and port of Mira
+            CONTAINER_ID=$(sudo docker ps -aqf "name=mira")
+            MIRA_URL=$(sudo docker port "$CONTAINER_ID" 9100)
+
+            # Check mira health
+            while [ "$NOMAD_IS_DOWN" == "true" ]; do
+              NOMAD_IS_DOWN=$(curl "$MIRA_URL/v1/health" -s -f -o /dev/null || echo "true")
+              sleep 1
+            done
+            echo "Deployment is up and running!"
+
+            # Check that Mira returns correct number of qix engines
+            NBR_ENGINES=$(curl "$MIRA_URL/v1/engines" | grep -o \"qix-engine\" | wc -w)
+            echo "Mira returned $NBR_ENGINES qix engines"
+
+            if [ "$NBR_ENGINES" != "2"]; then
+              echo "Incorrect number of qix engines found"
+              exit 1
+            fi
+
 workflows:
   version: 2
   kubernetes_and_swarm:
     jobs:
       - kubernetes
       - swarm
+      - nomad
