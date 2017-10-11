@@ -29,6 +29,7 @@ job "mira-nomad" {
       }
 
       resources {
+        # Default resource limits
         cpu    = 500 # 500 MHz
         memory = 256 # 256MB
         network {
@@ -43,7 +44,7 @@ job "mira-nomad" {
         check {
           type = "http"
           path = "/v1/health"
-          interval = "10s"
+          interval = "30s"
           timeout  = "2s"
         }
       }

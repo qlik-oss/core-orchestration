@@ -37,7 +37,7 @@ job "engine-nomad" {
         check {
           type = "http"
           path = "/healthcheck"
-          interval = "10s"
+          interval = "30s"
           timeout  = "2s"
         }
       }

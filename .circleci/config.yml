@@ -178,7 +178,7 @@ jobs:
 
 workflows:
   version: 2
-  kubernetes_and_swarm:
+  kubernetes_swarm_and_nomad:
     jobs:
       - kubernetes
       - swarm
