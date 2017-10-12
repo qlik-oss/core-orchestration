@@ -151,14 +151,12 @@ jobs:
             sudo nomad run ./Nomad/license-service.nomad
             sudo nomad run ./Nomad/engine.nomad
 
-            # Let the containers have some time to start
-            sleep 20
       - run:
           name: Check health of Core services
           command: |
             # Wait for Mira to be up and running
             while [ "$CONTAINER_ID" == "" ]; do
-              CONTAINER_ID=$(sudo docker ps -aqf "name=mira_mira_1")
+              CONTAINER_ID=$(sudo docker ps -aqf "name=mira")
               sleep 1
             done
             echo "Mira is up and running!"
