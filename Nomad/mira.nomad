@@ -11,7 +11,7 @@ job "mira-nomad" {
       driver = "docker"
 
       config {
-        image = "qlikea/mira:0.0.2-529"
+        image = "qlikea/mira:undefined"
         port_map {
           http = 9100
         }
