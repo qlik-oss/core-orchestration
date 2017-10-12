@@ -8,7 +8,7 @@ engine:
   image: qlikea/engine:12.76.0
 
 license-service:
-  image: qlikea/license-service:0.0.9-414
+  image: qlikea/license-service:0.0.9
 
 mira:
   image: qlikea/mira:0.0.2-529
