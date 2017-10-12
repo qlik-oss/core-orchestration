@@ -8,7 +8,7 @@
 
 ## Docker Swarm
 
-[Deploy with Docker Swarm](Docker-swarm/)
+[Deploy with Docker Swarm](Docker-Swarm/)
 
 ## Nomad (Experimental)
 
