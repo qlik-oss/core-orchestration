@@ -150,10 +150,10 @@ jobs:
             sudo nomad run ./Nomad/mira.nomad
             sudo nomad run ./Nomad/license-service.nomad
             sudo nomad run ./Nomad/engine.nomad
-
       - run:
           name: Check health of Core services
           command: |
+            set +e
             # Wait for Mira to be up and running
             while [ "$CONTAINER_ID" == "" ]; do
               CONTAINER_ID=$(sudo docker ps -aqf "name=mira")
