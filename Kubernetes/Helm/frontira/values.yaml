@@ -5,12 +5,12 @@ global:
   serviceType: LoadBalancer
 
 engine:
-  image: qlikea/engine:12.66.0
+  image: qlikea/engine:12.76.0
 
 license-service:
-  image: qlikea/license-service:0.0.1-361
+  image: qlikea/license-service:0.0.9-414
 
 mira:
-  image: qlikea/mira:0.0.2-396
+  image: qlikea/mira:0.0.2-529
   sideCartContainerName: kubectl
   sideCartContainerImage: gcr.io/google_containers/kubectl:v0.18.0-350-gfb3305edcf6c1a

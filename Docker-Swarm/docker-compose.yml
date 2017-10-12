@@ -6,7 +6,7 @@ services:
     # APIs to list (or query) all available QIX Engine containers
     # in the cluster.
     # See https://github.com/qlik-ea/mira
-    image: qlikea/mira:0.0.2-396
+    image: qlikea/mira:0.0.2-529
     ports:
       - 9100:9100
     volumes:
@@ -19,7 +19,7 @@ services:
     # QIX Engine is configured to run on all worker nodes in the
     # cluster, and is the service we primarily want to scale up in
     # this use-case.
-    image: qlikea/engine:12.51.0
+    image: qlikea/engine:12.76.0
     ports:
       - 9076:9076
       - 9090:9090
@@ -28,6 +28,6 @@ services:
 
   license-service:
     # License service is used to valiate a license and to unlock the QIX Engine service.
-    image: qlikea/license-service:0.0.1-361
+    image: qlikea/license-service:0.0.9-414
     ports:
       - 9200:9200
