@@ -156,16 +156,16 @@ jobs:
       - run:
           name: Check health of Core services
           command: |
-           # Find IP address and port of Mira
-            CONTAINER_ID=$(sudo docker ps -aqf "name=mira")
-            MIRA_URL=$(sudo docker port "$CONTAINER_ID" 9100)
-
-            # Check mira health
-            while [ "$NOMAD_IS_DOWN" == "true" ]; do
-              NOMAD_IS_DOWN=$(curl "$MIRA_URL/v1/health" -s -f -o /dev/null || echo "true")
+            # Wait for Mira to be up and running
+            while [ "$CONTAINER_ID" == "" ]; do
+              CONTAINER_ID=$(sudo docker ps -aqf "name=mira_mira_1")
               sleep 1
             done
-            echo "Deployment is up and running!"
+            echo "Mira is up and running!"
+
+            # Check Mira health
+            MIRA_URL=$(sudo docker port "$CONTAINER_ID" 9100)
+            curl -fs "$MIRA_URL/v1/health"
 
             # Check that Mira returns correct number of qix engines
             NBR_ENGINES=$(curl "$MIRA_URL/v1/engines" | grep -o \"qix-engine\" | wc -w)
