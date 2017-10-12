@@ -11,7 +11,7 @@ job "license-service-nomad" {
       driver = "docker"
 
       config {
-        image = "qlikea/license-service:0.0.9-414"
+        image = "qlikea/license-service:0.1.0"
         port_map {
           http = 9200
         }
