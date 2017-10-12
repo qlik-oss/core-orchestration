@@ -10,6 +10,6 @@
 
 [Deploy with Docker Swarm](Docker-swarm/)
 
-## Nomad
+## Nomad (Experimental)
 
 [Deploy with Nomad](Nomad/)
