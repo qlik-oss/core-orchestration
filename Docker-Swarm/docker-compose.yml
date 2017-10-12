@@ -6,7 +6,7 @@ services:
     # APIs to list (or query) all available QIX Engine containers
     # in the cluster.
     # See https://github.com/qlik-ea/mira
-    image: qlikea/mira:0.0.2-529
+    image: qlikea/mira:undefined
     ports:
       - 9100:9100
     volumes:
@@ -28,6 +28,6 @@ services:
 
   license-service:
     # License service is used to valiate a license and to unlock the QIX Engine service.
-    image: qlikea/license-service:0.0.9-414
+    image: qlikea/license-service:0.0.9
     ports:
       - 9200:9200
