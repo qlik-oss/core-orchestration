@@ -6,6 +6,6 @@ This repository contains the assets of the Frontira Core recipe. For an overview
 
 This recipe provides examples of deployment of the Frontira core services using the following orchestration platforms:
 
-- Docker Swarm
-- Kubernetes
-- Nomad (Experimental)
+- [Docker Swarm](./docker-swarm/)
+- [Kubernetes](./kubernetes/)
+- [Nomad](./nomad/) (Experimental)
