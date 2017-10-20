@@ -138,7 +138,7 @@ jobs:
             curl -Lo nomad.zip https://releases.hashicorp.com/nomad/0.6.3/nomad_0.6.3_linux_amd64.zip
             unzip nomad.zip
             chmod +x nomad
-            sudo mv nomad /usr/local/bin/
+            sudo mv -f nomad /usr/local/bin/
       - run:
           name: Start Nomad server
           command: sudo nomad agent -dev -config=./Nomad/nomad.hcl
