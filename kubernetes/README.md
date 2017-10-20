@@ -28,7 +28,7 @@ The Frontira stack consists of deployments and related services of QIX Engine, M
 
 In the [deployment](./plain/frontira/mira-deployment.yml) of Mira it is important to note a few things.
 
-Observe that the Mira deployment specifies two containers to run in the pod. This is because Mira needs to communicate with the Kuberneter API server through kubectl as a proxy.
+Observe that the Mira deployment specifies two containers to run in the pod. This is because Mira needs to communicate with the Kubernetes API server through kubectl as a proxy.
 
 Also note that Mira must be configured to run in Kubernetes mode. This does not happen automatically. To do this, the environment variable `MIRA_MODE` is set to `kubernetes`.
 
@@ -53,7 +53,7 @@ This label is required for Mira to identify engine pods as a QIX Engine instance
 
 ## Deploying
 
-Two types of deployments to Kubernetes are examplified. The first one is the "plain" Kubernetes method, using standerd deployments and services. The second one shows how to use [Helm](https://helm.sh/), which provides a powerful way to manage Kubernetes applications.
+Two types of deployments to Kubernetes are examplified. The first one is the "plain" Kubernetes method, using standard deployments and services. The second one shows how to use [Helm](https://helm.sh/), which provides a powerful way to manage Kubernetes applications.
 
 ### Deploying to plain Kubernetes
 
