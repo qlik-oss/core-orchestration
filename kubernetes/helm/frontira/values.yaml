@@ -1,0 +1,16 @@
+global:
+  imagePullPolicy: IfNotPresent
+  imagePullSecrets: dockerhub
+  # Set serviceType to NodePort if running in minikube
+  serviceType: LoadBalancer
+
+engine:
+  image: qlikea/engine:12.82.0
+
+license-service:
+  image: qlikea/license-service:0.1.0
+
+mira:
+  image: qlikea/mira:0.0.6
+  sideCartContainerName: kubectl
+  sideCartContainerImage: gcr.io/google_containers/kubectl:v0.18.0-350-gfb3305edcf6c1a
