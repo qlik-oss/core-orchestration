@@ -136,10 +136,9 @@ jobs:
           name: Install Nomad
           command: |
             curl -Lo nomad.zip https://releases.hashicorp.com/nomad/0.6.3/nomad_0.6.3_linux_amd64.zip
-            rm -rf nomad
-            unzip nomad.zip
-            chmod +x nomad
-            sudo mv -f nomad /usr/local/bin/
+            unzip -d nomad-unzip nomad.zip
+            chmod +x nomad-unzip/nomad
+            sudo mv nomad-unzip/nomad /usr/local/bin/
       - run:
           name: Start Nomad server
           command: sudo nomad agent -dev -config=./Nomad/nomad.hcl
