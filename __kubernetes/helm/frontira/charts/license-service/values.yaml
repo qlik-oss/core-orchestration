@@ -1,8 +1,0 @@
-replicaCount: 1
-image: qlikea/license-service:0.1.0
-service:
-  name: http
-  externalPort: 9200
-  internalPort: 9200
-global:
-  serviceType: NodePort
