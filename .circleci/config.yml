@@ -18,10 +18,10 @@ jobs:
       - run:
           name: Lint charts
           command: |
-            helm lint ./Kubernetes/Helm/frontira
-            helm lint ./Kubernetes/Helm/frontira/charts/engine
-            helm lint ./Kubernetes/Helm/frontira/charts/mira
-            helm lint ./Kubernetes/Helm/frontira/charts/license-service
+            helm lint ./kubernetes/helm/frontira
+            helm lint ./kubernetes/helm/frontira/charts/engine
+            helm lint ./kubernetes/helm/frontira/charts/mira
+            helm lint ./kubernetes/helm/frontira/charts/license-service
       - run:
           name: Install Kubectl
           command: |
@@ -55,7 +55,7 @@ jobs:
           command: sudo helm init --debug; sudo kubectl rollout status -w deployment/tiller-deploy --namespace=kube-system;
       - run:
           name: Helm install frontira
-          command: sudo helm install ./Kubernetes/Helm/frontira --set global.setType=NodePort --name test --debug
+          command: sudo helm install ./kubernetes/helm/frontira --set global.setType=NodePort --name test --debug
       - run:
           name: Check health of services
           command: |
@@ -70,7 +70,7 @@ jobs:
           command: sudo helm delete test --debug
       - run:
           name: Kubernetes plain frontira
-          command: sudo kubectl create -f ./Kubernetes/Plain/frontira/
+          command: sudo kubectl create -f ./kubernetes/plain/frontira/
       - run:
           name: Check health of services
           command: |
@@ -82,7 +82,7 @@ jobs:
             curl -fs "$LICENSE_SERVICE_URL/v1/health"
       - run:
           name: Kubernetes delete frontira
-          command: sudo kubectl delete -f ./Kubernetes/Plain/frontira/
+          command: sudo kubectl delete -f ./kubernetes/plain/frontira/
 
   # Job for testing docker swarm deployment of core
   swarm:
@@ -97,7 +97,7 @@ jobs:
           name: Spin up core in a local docker swarm
           command: |
             docker swarm init
-            docker stack deploy -c ./Docker-Swarm/docker-compose.yml --with-registry-auth core
+            docker stack deploy -c ./docker-swarm/docker-compose.yml --with-registry-auth core
       - run:
           name: Wait for docker swarm to be up and running
           command: |
@@ -135,10 +135,13 @@ jobs:
       - run:
           name: Install Nomad
           command: |
-            curl -Lo nomad.zip https://releases.hashicorp.com/nomad/0.6.3/nomad_0.6.3_linux_amd64.zip && unzip nomad.zip && chmod +x nomad && sudo mv nomad /usr/local/bin/
+            curl -Lo nomad.zip https://releases.hashicorp.com/nomad/0.6.3/nomad_0.6.3_linux_amd64.zip
+            unzip -d nomad-unzip nomad.zip
+            chmod +x nomad-unzip/nomad
+            sudo mv nomad-unzip/nomad /usr/local/bin/
       - run:
           name: Start Nomad server
-          command: sudo nomad agent -dev -config=./Nomad/nomad.hcl
+          command: sudo nomad agent -dev -config=./nomad/nomad.hcl
           background: true
       - run:
           name: Deploy Core to Nomad
@@ -147,9 +150,9 @@ jobs:
             sleep 5
 
             # Deploy services
-            sudo nomad run ./Nomad/mira.nomad
-            sudo nomad run ./Nomad/license-service.nomad
-            sudo nomad run ./Nomad/engine.nomad
+            sudo nomad run ./nomad/mira.nomad
+            sudo nomad run ./nomad/license-service.nomad
+            sudo nomad run ./nomad/engine.nomad
       - run:
           name: Check health of Core services
           command: |
