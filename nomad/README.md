@@ -19,7 +19,7 @@ Mira uses docker.sock to discover QIX Engine instances and in Nomad this require
 Deploy the core stack with the following commands:
 
 ```sh
-$ nomad run ./Nomad/mira.nomad
-$ nomad run ./Nomad/license-service.nomad
-$ nomad run ./Nomad/engine.nomad
+$ nomad run ./nomad/mira.nomad
+$ nomad run ./nomad/license-service.nomad
+$ nomad run ./nomad/engine.nomad
 ```
