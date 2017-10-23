@@ -12,12 +12,8 @@ This repository contains the assets of the Frontira Core recipe. For an overview
 
 ## Contributing
 
-**TODO**  
-What should we write here? Should we point to some general "Contribution" info for Frontira?
+We welcome and encourage contributions! Please read [Open Source at Qlik R&D](https://github.com/qlik-oss/open-source) for more info on how to get involved.
 
 ## Found a bug?
 
-Found a problem with the examples? Submit an issue and label it with "bug".
-
-**TODO**  
-Should we provide some bug submission template so that we get the info we want in order to investigate efficiently?
+Found a problem with the examples? Don't hesitate to submit an issue.
