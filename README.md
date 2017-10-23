@@ -7,8 +7,8 @@ This repository contains the assets of the Frontira Core recipe. For an overview
 ## Contents
 
 - [docker-swarm/](./docker-swarm/) - Folder containing Docker Swarm example.
-- [Kubernetes](./kubernetes/) - Folder containg Kubernetes examples, both "plain" and using Helm.
-- [Nomad](./nomad/) *Experimental* - Folder containing Nomad examples.
+- [kubernetes/](./kubernetes/) - Folder containg Kubernetes examples, both "plain" and using Helm.
+- [nomad/](./nomad/) - Folder containing Nomad examples. **Experimental**.
 
 ## Contributing
 
