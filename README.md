@@ -14,7 +14,7 @@ This recipe provides examples of deployment of the Frontira core services using 
 
 ## Licensing
 
-Since QIX Engine runs under a license model, the examples require this configuration to be done. It should be clear in each example, and with the information provided below, how to do this.
+Since QIX Engine runs under a license model, the examples require licensing configuration to be done. It should be clear in each example, and with the information provided below, how to do this.
 
 **NOTE**: The examples do not yet contain these configuration options since QIX Engine does not yet support it. Examples will be updated as soon as this becomes available.
 
@@ -42,7 +42,7 @@ services:
 
 ### Configuring the QIX Engine
 
-When running, the QIX Engine periodically communicates with the License Service to ensure that it is running under a valid license. In order to do so, QIX Engine deployments must be configured with the URL to use for accessing the Licence Servie REST API. This is done by providing the `LicenseServiceURL` command switch to the engine. In a docker-compose file this would typically look like:
+When running, the QIX Engine periodically communicates with the License Service to ensure that it is running under a valid license. QIX Engine deployments must be configured with the URL to use for accessing the Licence Service REST API. This is done by providing the `LicenseServiceURL` command switch to the engine. In a docker-compose file this would typically look like:
 
 ```yml
 version: "3.0"
