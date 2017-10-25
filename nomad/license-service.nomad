@@ -29,6 +29,7 @@ job "license-service-nomad" {
 
       service {
         name = "license-service"
+        address_mode = "driver"
         port = "http"
         check {
           type = "http"

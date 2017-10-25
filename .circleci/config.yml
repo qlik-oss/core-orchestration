@@ -133,6 +133,17 @@ jobs:
           name: Login to Docker
           command: docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD"
       - run:
+          name: Install Consul
+          command: |
+            curl -Lo consul.zip https://releases.hashicorp.com/consul/1.0.0/consul_1.0.0_linux_amd64.zip
+            unzip -d consul-unzip consul.zip
+            chmod +x consul-unzip/consul
+            sudo mv consul-unzip/consul /usr/local/bin/
+      - run:
+          name: Start Consul server
+          command: sudo consul agent -dev -client=0.0.0.0 -dns-port=53 -recursor=8.8.8.8
+          background: true
+      - run:
           name: Install Nomad
           command: |
             curl -Lo nomad.zip https://releases.hashicorp.com/nomad/0.6.3/nomad_0.6.3_linux_amd64.zip
@@ -169,12 +180,16 @@ jobs:
             curl -fs "$MIRA_URL/v1/health"
 
             # Check that Mira returns correct number of qix engines
-            NBR_ENGINES=$(curl "$MIRA_URL/v1/engines" | grep -o \"qix-engine\" | wc -w)
-            echo "Mira returned $NBR_ENGINES qix engines"
-
+            RETRIES=0
+            while (( NBR_ENGINES != "2" && RETRIES != 10 )); do
+              NBR_ENGINES=$(curl "$MIRA_URL/v1/engines" | grep -o \"metricsPort\" | wc -w)
+              echo "Mira returned $NBR_ENGINES qix engines"
+              sleep 2
+              RETRIES=$((RETRIES + 1 ))
+            done
             if [ "$NBR_ENGINES" != "2" ]; then
               echo "Incorrect number of qix engines found"
-              # exit 1
+              exit 1
             fi
 
 workflows:

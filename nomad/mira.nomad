@@ -11,21 +11,17 @@ job "mira-nomad" {
       driver = "docker"
 
       config {
-        image = "qlikea/mira:0.0.6"
+        image = "qlikea/mira:0.0.7-773"
+        dns_search_domains = ["service.dc1.consul"]
+        dns_servers = ["172.17.0.1", "8.8.8.8"]
         port_map {
           http = 9100
         }
-
-        volumes = [
-          "/var/run/docker.sock:/var/run/docker.sock"
-        ]
-
-        # Required to be able to access docker.sock
-        privileged = true
       }
 
       env {
-        MIRA_MODE = "local" # Currently no specific mira mode for nomad
+        MIRA_MODE = "dns"
+        MIRA_DISCOVERY_HOSTNAME = "qix-engine.service.consul"
       }
 
       resources {
@@ -40,6 +36,7 @@ job "mira-nomad" {
 
       service {
         name = "mira"
+        address_mode = "driver"
         port = "http"
         check {
           type = "http"

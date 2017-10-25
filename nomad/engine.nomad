@@ -16,10 +16,6 @@ job "engine-nomad" {
           http = 9076
           metrics = 9090
         }
-
-        labels {
-          "qix-engine" = ""
-        }
       }
 
       resources {
@@ -33,6 +29,7 @@ job "engine-nomad" {
 
       service {
         name = "qix-engine"
+        address_mode = "driver"
         port = "http"
         check {
           type = "http"
