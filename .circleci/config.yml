@@ -181,7 +181,7 @@ jobs:
 
             # Check that Mira returns correct number of qix engines
             RETRIES=0
-            while (( NBR_ENGINES != "2" && RETRIES != 10 )); do
+            while (( NBR_ENGINES != "2" && RETRIES != 30 )); do
               NBR_ENGINES=$(curl "$MIRA_URL/v1/engines" | grep -o \"metricsPort\" | wc -w)
               echo "Mira returned $NBR_ENGINES qix engines"
               sleep 2
