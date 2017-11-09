@@ -11,7 +11,7 @@ job "mira-nomad" {
       driver = "docker"
 
       config {
-        image = "qlikea/mira:0.0.7"
+        image = "qlikea/mira:"
         dns_search_domains = ["service.dc1.consul"]
         # Use docker bridge as dns server
         dns_servers = ["172.17.0.1", "8.8.8.8"]
