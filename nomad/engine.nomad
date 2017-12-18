@@ -11,7 +11,7 @@ job "engine-nomad" {
       driver = "docker"
 
       config {
-        image = "qlikea/engine:12.110.0"
+        image = "qlikea/engine:12.113.0"
         port_map {
           http = 9076
           metrics = 9090
