@@ -2,7 +2,7 @@ version: "3.0"
 
 services:
   mira:
-    image: qlikea/mira:0.0.9
+    image: qlikea/mira:0.0.10
     ports:
       - 9100:9100
     volumes:
@@ -12,7 +12,7 @@ services:
         constraints: [node.role == manager]
 
   qix-engine:
-    image: qlikea/engine:12.117.0
+    image: qlikea/engine:12.119.0
     ports:
       - 9076:9076
       - 9090:9090
