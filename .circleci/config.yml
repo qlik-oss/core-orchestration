@@ -101,6 +101,8 @@ jobs:
       - run:
           name: Verify that services are healthy
           command: |
+            set +e
+
             # Verify Mira health
             RETRIES=0
             while (( MIRA_STATUS != "200" && RETRIES != 30 )); do
