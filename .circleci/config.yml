@@ -103,36 +103,35 @@ jobs:
           command: |
             # Verify Mira health
             RETRIES=0
-            while (( MIRA_IS_RUNNING == "true" && RETRIES != 30 )); do
-              MIRA_IS_RUNNING=$(curl http://localhost:9100/v1/health -s -f -o /dev/null || echo "false")
+            while (( MIRA_STATUS != "200" && RETRIES != 30 )); do
+              MIRA_STATUS=$(curl -s -o /dev/null -w ''%{http_code}'' http://localhost:9100/v1/health)
               sleep 2
               RETRIES=$((RETRIES + 1 ))
             done
 
-            echo "Mira is running: $MIRA_IS_RUNNING"
+            echo "Mira returned status code: $MIRA_STATUS"
 
             # Verify License-Service health
             RETRIES=0
-            while (( LICENSE_IS_RUNNING == "true" && RETRIES != 30 )); do
-              LICENSE_IS_RUNNING=$(curl http://localhost:9200/v1/health -s -f -o /dev/null || echo "false")
+            while (( LICENSE_STATUS != "200" && RETRIES != 30 )); do
+              LICENSE_STATUS=$(curl -s -o /dev/null -w ''%{http_code}'' http://localhost:9200/v1/health)
               sleep 2
               RETRIES=$((RETRIES + 1 ))
             done
 
-            echo "License-Service is running: $LICENSE_IS_RUNNING"
+            echo "License-Service returned status code: $LICENSE_STATUS"
 
             # Verify QIX Engine health
-            RETRIES=0
-            while (( ENGINE_IS_RUNNING == "true" && RETRIES != 30 )); do
-              ENGINE_IS_RUNNING=$(curl http://localhost:9076/healthcheck -s -f -o /dev/null || echo "false")
+            while (( ENGINE_STATUS != "200" && RETRIES != 30 )); do
+              ENGINE_STATUS=$(curl -s -o /dev/null -w ''%{http_code}'' http://localhost:9076/healthcheck)
               sleep 2
               RETRIES=$((RETRIES + 1 ))
             done
 
-            echo "QIX Engine is running: $ENGINE_IS_RUNNING"
+            echo "Engine returned status code: $ENGINE_STATUS"
 
-            if [[ "$MIRA_IS_RUNNING" == "false" || "$LICENSE_IS_RUNNING" == "false" || "$ENGINE_IS_RUNNING" == "false" ]]; then
-              echo "Services did not start up properly"
+            if [[ "$MIRA_STATUS" != "200" || "$LICENSE_STATUS" != "200" || "$ENGINE_STATUS" != "200" ]]; then
+              echo "All services did not return status code 200 on health endpoints"
               exit 1
             fi
       - run:
