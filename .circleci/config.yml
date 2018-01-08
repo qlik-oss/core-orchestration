@@ -99,24 +99,43 @@ jobs:
             docker swarm init
             docker stack deploy -c ./docker-swarm/docker-compose.yml --with-registry-auth core
       - run:
-          name: Wait for docker swarm to be up and running
+          name: Verify that services are healthy
           command: |
-            echo "Waiting for Swarm to wake up..."
-            SWARM_IS_DOWN="true"
+            set +e
 
-            while [ "$SWARM_IS_DOWN" == "true" ]; do
-              SWARM_IS_DOWN=$(curl http://localhost:9100/v1/health -s -f -o /dev/null || echo "true")
-              sleep 1
+            # Verify Mira health
+            RETRIES=0
+            while (( MIRA_STATUS != "200" && RETRIES != 30 )); do
+              MIRA_STATUS=$(curl -s -o /dev/null -w ''%{http_code}'' http://localhost:9100/v1/health)
+              sleep 2
+              RETRIES=$((RETRIES + 1 ))
             done
 
-            echo "Swarm is up and running!"
-      - run:
-          name: Check health of services
-          command: |
-            # Check mira health
-            curl -fs http://localhost:9100/v1/health
-            # Check license service health
-            curl -fs http://localhost:9200/v1/health
+            echo "Mira returned status code: $MIRA_STATUS"
+
+            # Verify License-Service health
+            RETRIES=0
+            while (( LICENSE_STATUS != "200" && RETRIES != 30 )); do
+              LICENSE_STATUS=$(curl -s -o /dev/null -w ''%{http_code}'' http://localhost:9200/v1/health)
+              sleep 2
+              RETRIES=$((RETRIES + 1 ))
+            done
+
+            echo "License-Service returned status code: $LICENSE_STATUS"
+
+            # Verify QIX Engine health
+            while (( ENGINE_STATUS != "200" && RETRIES != 30 )); do
+              ENGINE_STATUS=$(curl -s -o /dev/null -w ''%{http_code}'' http://localhost:9076/healthcheck)
+              sleep 2
+              RETRIES=$((RETRIES + 1 ))
+            done
+
+            echo "Engine returned status code: $ENGINE_STATUS"
+
+            if [[ "$MIRA_STATUS" != "200" || "$LICENSE_STATUS" != "200" || "$ENGINE_STATUS" != "200" ]]; then
+              echo "All services did not return status code 200 on health endpoints"
+              exit 1
+            fi
       - run:
           name: Remove deployment and leave swarm
           command: |
