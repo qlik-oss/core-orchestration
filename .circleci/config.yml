@@ -99,43 +99,42 @@ jobs:
             docker swarm init
             docker stack deploy -c ./docker-swarm/docker-compose.yml --with-registry-auth core
       - run:
-          name: Wait for services to be up and running
+          name: Verify that services are healthy
           command: |
-            set +e
-
-            # Check that Mira reaches state healthy
-            MIRA_ID=$(docker ps -aqf "name=core_mira")
-            echo "Mira container id is $MIRA_ID"
+            # Verify Mira health
             RETRIES=0
-            while [[ "$MIRA_STATUS" != "healthy" && $RETRIES -le 30 ]]; do
-              MIRA_STATUS=$(docker inspect -f '{{.State.Health.Status}}' "$MIRA_ID")
-              echo "Mira status is $MIRA_STATUS"
+            while (( MIRA_IS_RUNNING == "true" && RETRIES != 30 )); do
+              MIRA_IS_RUNNING=$(curl http://localhost:9100/v1/health -s -f -o /dev/null || echo "false")
               sleep 2
-              RETRIES=$[$RETRIES+1]
+              RETRIES=$((RETRIES + 1 ))
             done
 
-            # Check that License-Service reaches state healthy
-            LICENSE_ID=$(docker ps -aqf "name=core_license-service")
-            echo "License-Service container id is $LICENSE_ID"
+            echo "Mira is running: $MIRA_IS_RUNNING"
+
+            # Verify License-Service health
             RETRIES=0
-            while [[ "$LICENSE_STATUS" != "healthy" && $RETRIES -le 30 ]]; do
-              LICENSE_STATUS=$(docker inspect -f '{{.State.Health.Status}}' "$LICENSE_ID")
-              echo "License-Service status is $LICENSE_STATUS"
+            while (( LICENSE_IS_RUNNING == "true" && RETRIES != 30 )); do
+              LICENSE_IS_RUNNING=$(curl http://localhost:9200/v1/health -s -f -o /dev/null || echo "false")
               sleep 2
-              RETRIES=$[$RETRIES+1]
+              RETRIES=$((RETRIES + 1 ))
             done
 
-            if [[ "$MIRA_STATUS" != "healthy" || "$LICENSE_STATUS" != "healthy"  ]]; then
+            echo "License-Service is running: $LICENSE_IS_RUNNING"
+
+            # Verify QIX Engine health
+            RETRIES=0
+            while (( ENGINE_IS_RUNNING == "true" && RETRIES != 30 )); do
+              ENGINE_IS_RUNNING=$(curl http://localhost:9076/healthcheck -s -f -o /dev/null || echo "false")
+              sleep 2
+              RETRIES=$((RETRIES + 1 ))
+            done
+
+            echo "QIX Engine is running: $ENGINE_IS_RUNNING"
+
+            if [[ "$MIRA_IS_RUNNING" == "false" || "$LICENSE_IS_RUNNING" == "false" || "$ENGINE_IS_RUNNING" == "false" ]]; then
               echo "Services did not start up properly"
               exit 1
             fi
-      - run:
-          name: Check health of services
-          command: |
-            # Check mira health
-            curl -fs http://localhost:9100/v1/health
-            # Check license service health
-            curl -fs http://localhost:9200/v1/health
       - run:
           name: Remove deployment and leave swarm
           command: |
