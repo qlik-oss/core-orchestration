@@ -99,17 +99,36 @@ jobs:
             docker swarm init
             docker stack deploy -c ./docker-swarm/docker-compose.yml --with-registry-auth core
       - run:
-          name: Wait for docker swarm to be up and running
+          name: Wait for services to be up and running
           command: |
-            echo "Waiting for Swarm to wake up..."
-            SWARM_IS_DOWN="true"
+            set +e
 
-            while [ "$SWARM_IS_DOWN" == "true" ]; do
-              SWARM_IS_DOWN=$(curl http://localhost:9100/v1/health -s -f -o /dev/null || echo "true")
-              sleep 1
+            # Check that Mira reaches state healthy
+            MIRA_ID=$(docker ps -aqf "name=core_mira")
+            echo "Mira container id is $MIRA_ID"
+            RETRIES=0
+            while [[ "$MIRA_STATUS" != "healthy" && $RETRIES -le 30 ]]; do
+              MIRA_STATUS=$(docker inspect -f '{{.State.Health.Status}}' "$MIRA_ID")
+              echo "Mira status is $MIRA_STATUS"
+              sleep 2
+              RETRIES=$[$RETRIES+1]
             done
 
-            echo "Swarm is up and running!"
+            # Check that License-Service reaches state healthy
+            LICENSE_ID=$(docker ps -aqf "name=core_license-service")
+            echo "License-Service container id is $LICENSE_ID"
+            RETRIES=0
+            while [[ "$LICENSE_STATUS" != "healthy" && $RETRIES -le 30 ]]; do
+              LICENSE_STATUS=$(docker inspect -f '{{.State.Health.Status}}' "$LICENSE_ID")
+              echo "License-Service status is $LICENSE_STATUS"
+              sleep 2
+              RETRIES=$[$RETRIES+1]
+            done
+
+            if [[ "$MIRA_STATUS" != "healthy" || "$LICENSE_STATUS" != "healthy"  ]]; then
+              echo "Services did not start up properly"
+              exit 1
+            fi
       - run:
           name: Check health of services
           command: |
