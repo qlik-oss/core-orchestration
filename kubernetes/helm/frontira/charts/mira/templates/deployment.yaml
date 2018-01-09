@@ -25,8 +25,8 @@ spec:
         - name: MIRA_MODE
           value: {{default "kubernetes" .Values.miraMode}}
       - name: {{ .Values.sideCartContainerName }}
-        image: {{ .Values.sideCartContainerImage }}      
+        image: {{ .Values.sideCartContainerImage }}
         args: {{ .Values.sideCartContainerArgs }}
-        imagePullPolicy: {{ .Values.global.imagePullPolicy }}        
+        imagePullPolicy: {{ .Values.global.imagePullPolicy }}
       imagePullSecrets:
       - name: {{ .Values.global.imagePullSecrets }}

@@ -24,3 +24,6 @@ services:
     image: qlikea/license-service:0.2.0
     ports:
       - 9200:9200
+    environment:
+      - LEF_SERIAL=<LEF serial number here>
+      - LEF_CONTROL=<LEF control number here>

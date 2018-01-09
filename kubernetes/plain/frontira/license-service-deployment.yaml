@@ -17,5 +17,10 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9200
+        env:
+        - name: LEF_SERIAL
+          value: <LEF serial number here>
+        - name: LEF_CONTROL
+          value: <LEF control number here>
       imagePullSecrets:
       - name: dockerhub

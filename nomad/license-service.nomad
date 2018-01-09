@@ -17,6 +17,11 @@ job "license-service-nomad" {
         }
       }
 
+      env {
+        LEF_SERIAL = "<LEF serial number here>"
+        LEF_CONTROL = "<LEF control number here>"
+      }
+
       resources {
         # Default resource limits
         cpu    = 500 # 500 MHz
