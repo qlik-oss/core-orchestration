@@ -23,6 +23,7 @@ spec:
       - name: {{ .Chart.Name }}
         image: "{{ .Values.image }}"
         imagePullPolicy: {{ .Values.global.imagePullPolicy }}
+        command: ["-S LicenseServiceUrl=http://license-service:9200"]
         ports:
         - containerPort: {{ .Values.service.internalPort }}
         - containerPort: {{ .Values.service.prometheusPort }}
