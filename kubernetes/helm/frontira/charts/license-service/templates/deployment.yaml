@@ -21,10 +21,5 @@ spec:
         imagePullPolicy: {{ .Values.global.imagePullPolicy }}
         ports:
         - containerPort: {{ default 9200 .Values.service.internalPort }}
-        env:
-        - name: LEF_SERIAL
-          value: <LEF serial number here>
-        - name: LEF_CONTROL
-          value: <LEF control number here>
       imagePullSecrets:
       - name: {{ .Values.global.imagePullSecrets }}

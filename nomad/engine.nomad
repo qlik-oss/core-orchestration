@@ -12,7 +12,7 @@ job "engine-nomad" {
 
       config {
         image = "qlikea/engine:12.119.0"
-        command = "-S LicenseServiceURL=http://license-service:9200"
+        command = "-S LicenseServiceUrl=http://license-service:9200"
 
         port_map {
           http = 9076
