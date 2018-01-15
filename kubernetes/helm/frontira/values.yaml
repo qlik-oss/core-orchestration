@@ -5,10 +5,10 @@ global:
   serviceType: LoadBalancer
 
 engine:
-  image: qlikea/engine:12.119.0
+  image: qlikea/engine:12.121.0
 
 license-service:
-  image: qlikea/license-service:0.2.0
+  image: qlikea/license-service:0.3.0
 
 mira:
   image: qlikea/mira:0.0.10
