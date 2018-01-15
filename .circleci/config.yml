@@ -124,6 +124,7 @@ jobs:
             echo "License-Service returned status code: $LICENSE_STATUS"
 
             # Verify QIX Engine health
+            RETRIES=0
             while (( ENGINE_STATUS != "200" && RETRIES != 30 )); do
               ENGINE_STATUS=$(curl -s -o /dev/null -w ''%{http_code}'' http://localhost:9076/healthcheck)
               sleep 2
