@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: engine
-        image: "qlikea/engine:12.124.0"
+        image: "qlikea/engine:12.125.0"
         command: ["-S LicenseServiceUrl=http://license-service:9200"]
         imagePullPolicy: IfNotPresent
         ports:
