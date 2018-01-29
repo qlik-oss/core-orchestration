@@ -11,7 +11,7 @@ job "engine-nomad" {
       driver = "docker"
 
       config {
-        image = "qlikea/engine:12.125.0"
+        image = "qlikea/engine:12.129.0"
         command = "-S LicenseServiceUrl=http://license-service:9200"
 
         port_map {
