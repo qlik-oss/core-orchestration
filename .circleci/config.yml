@@ -106,7 +106,7 @@ jobs:
             set +e
 
             # Check that Mira returns correct number of qix engines
-            MIRA_URL=$(sudo minikube service test-mira --url)
+            MIRA_URL=$(sudo minikube service mira --url)
             RETRIES=0
             EXPECTED_NBR_ENGINES=2
             while (( NBR_ENGINES != "$EXPECTED_NBR_ENGINES" && RETRIES != 10 )); do
