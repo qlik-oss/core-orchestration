@@ -66,6 +66,11 @@ jobs:
             LICENSE_SERVICE_URL=$(sudo minikube service test-license-service --url)
             curl -fs "$LICENSE_SERVICE_URL/v1/health"
       - run:
+          name: Verify number of QIX Engines found
+          command: |
+            MIRA_URL=$(sudo minikube service test-mira --url)
+            ./.circleci/verify_qix_engines.sh $MIRA_URL
+      - run:
           name: Helm delete qlik-core
           command: sudo helm delete test --debug
       - run:
@@ -80,6 +85,11 @@ jobs:
             # Check license service health
             LICENSE_SERVICE_URL=$(sudo minikube service license-service --url)
             curl -fs "$LICENSE_SERVICE_URL/v1/health"
+      - run:
+          name: Verify number of QIX Engines found
+          command: |
+            MIRA_URL=$(sudo minikube service mira --url)
+            ./.circleci/verify_qix_engines.sh $MIRA_URL
       - run:
           name: Kubernetes delete qlik-core
           command: sudo kubectl delete -f ./kubernetes/plain/qlik-core/
@@ -137,6 +147,9 @@ jobs:
               echo "All services did not return status code 200 on health endpoints"
               exit 1
             fi
+      - run:
+          name: Verify number of QIX Engines found
+          command: ./.circleci/verify_qix_engines.sh "http://localhost:9100"
       - run:
           name: Remove deployment and leave swarm
           command: |
@@ -200,17 +213,7 @@ jobs:
             curl -fs "$MIRA_URL/v1/health"
 
             # Check that Mira returns correct number of qix engines
-            RETRIES=0
-            while (( NBR_ENGINES != "2" && RETRIES != 30 )); do
-              NBR_ENGINES=$(curl "$MIRA_URL/v1/engines" | grep -o \"metricsPort\" | wc -w)
-              echo "Mira returned $NBR_ENGINES qix engines"
-              sleep 2
-              RETRIES=$((RETRIES + 1 ))
-            done
-            if [ "$NBR_ENGINES" != "2" ]; then
-              echo "Incorrect number of qix engines found"
-              exit 1
-            fi
+            ./.circleci/verify_qix_engines.sh $MIRA_URL
 
 workflows:
   version: 2
