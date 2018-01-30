@@ -1,4 +1,4 @@
-You have now deployed the Frontira stack.
+You have now deployed the Qlik Core stack.
 
 Your release is named: {{ .Release.Name }}.
 
