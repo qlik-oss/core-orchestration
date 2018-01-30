@@ -18,10 +18,10 @@ jobs:
       - run:
           name: Lint charts
           command: |
-            helm lint ./kubernetes/helm/frontira
-            helm lint ./kubernetes/helm/frontira/charts/engine
-            helm lint ./kubernetes/helm/frontira/charts/mira
-            helm lint ./kubernetes/helm/frontira/charts/license-service
+            helm lint ./kubernetes/helm/qlik-core
+            helm lint ./kubernetes/helm/qlik-core/charts/engine
+            helm lint ./kubernetes/helm/qlik-core/charts/mira
+            helm lint ./kubernetes/helm/qlik-core/charts/license-service
       - run:
           name: Install Kubectl
           command: |
@@ -54,8 +54,8 @@ jobs:
           name: Helm init and wait for tiller to be running
           command: sudo helm init --debug; sudo kubectl rollout status -w deployment/tiller-deploy --namespace=kube-system;
       - run:
-          name: Helm install frontira
-          command: sudo helm install ./kubernetes/helm/frontira --set global.setType=NodePort --name test --debug
+          name: Helm install qlik-core
+          command: sudo helm install ./kubernetes/helm/qlik-core --set global.setType=NodePort --name test --debug
       - run:
           name: Check health of services
           command: |
@@ -86,11 +86,11 @@ jobs:
               exit 1
             fi
       - run:
-          name: Helm delete frontira
+          name: Helm delete qlik-core
           command: sudo helm delete test --debug
       - run:
-          name: Kubernetes plain frontira
-          command: sudo kubectl create -f ./kubernetes/plain/frontira/
+          name: Kubernetes plain qlik-core
+          command: sudo kubectl create -f ./kubernetes/plain/qlik-core/
       - run:
           name: Check health of services
           command: |
@@ -121,8 +121,8 @@ jobs:
               exit 1
             fi
       - run:
-          name: Kubernetes delete frontira
-          command: sudo kubectl delete -f ./kubernetes/plain/frontira/
+          name: Kubernetes delete qlik-core
+          command: sudo kubectl delete -f ./kubernetes/plain/qlik-core/
 
   # Job for testing docker swarm deployment of core
   swarm:
