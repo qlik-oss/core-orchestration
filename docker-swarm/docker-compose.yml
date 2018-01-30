@@ -13,6 +13,8 @@ services:
 
   qix-engine:
     image: qlikea/engine:12.129.0
+    deploy:
+      replicas: 2
     command: -S LicenseServiceUrl=http://license-service:9200
     ports:
       - 9076:9076

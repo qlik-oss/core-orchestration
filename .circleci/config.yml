@@ -65,9 +65,6 @@ jobs:
             # Check license service health
             LICENSE_SERVICE_URL=$(sudo minikube service test-license-service --url)
             curl -fs "$LICENSE_SERVICE_URL/v1/health"
-            # Check QIX Engine health
-            ENGINE_URL=$(sudo minikube service test-engine --url)
-            curl -fs "$ENGINE_URL/healthcheck"
       - run:
           name: Verify number of QIX Engines found
           command: |
@@ -103,9 +100,6 @@ jobs:
             # Check license service health
             LICENSE_SERVICE_URL=$(sudo minikube service license-service --url)
             curl -fs "$LICENSE_SERVICE_URL/v1/health"
-            # Check QIX Engine health
-            ENGINE_URL=$(sudo minikube service test-engine --url)
-            curl -fs "$ENGINE_URL/healthcheck"
       - run:
           name: Verify number of QIX Engines found
           command: |
