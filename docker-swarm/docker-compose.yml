@@ -15,7 +15,7 @@ services:
     image: qlikea/engine:12.134.0
     deploy:
       replicas: 2
-    command: -S LicenseServiceUrl=http://license-service:9200
+    command: -S AcceptEULA=${ACCEPT_EULA} -S LicenseServiceUrl=http://license-service:9200
     ports:
       - 9076:9076
       - 9090:9090

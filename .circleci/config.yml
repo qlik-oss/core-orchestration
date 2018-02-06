@@ -18,8 +18,8 @@ jobs:
       - run:
           name: Lint charts
           command: |
-            helm lint ./kubernetes/helm/qlik-core
-            helm lint ./kubernetes/helm/qlik-core/charts/engine
+            helm lint ./kubernetes/helm/qlik-core --set engine.acceptEULA=yes
+            helm lint ./kubernetes/helm/qlik-core/charts/engine --set acceptEULA=yes
             helm lint ./kubernetes/helm/qlik-core/charts/mira
             helm lint ./kubernetes/helm/qlik-core/charts/license-service
       - run:
@@ -55,7 +55,7 @@ jobs:
           command: sudo helm init --debug; sudo kubectl rollout status -w deployment/tiller-deploy --namespace=kube-system;
       - run:
           name: Helm install qlik-core
-          command: sudo helm install ./kubernetes/helm/qlik-core --set global.setType=NodePort --name test --debug
+          command: sudo helm install ./kubernetes/helm/qlik-core --set global.setType=NodePort,engine.acceptEULA=yes --name test --debug
       - run:
           name: Check health of services
           command: |
@@ -73,6 +73,9 @@ jobs:
       - run:
           name: Helm delete qlik-core
           command: sudo helm delete test --debug
+      - run:
+          name: Accept EULA
+          command: grep -rl AcceptEULA ./kubernetes/plain | xargs sed -i 's/AcceptEULA=no/AcceptEULA=yes/g'
       - run:
           name: Kubernetes plain qlik-core
           command: sudo kubectl create -f ./kubernetes/plain/qlik-core/
@@ -106,8 +109,10 @@ jobs:
       - run:
           name: Spin up core in a local docker swarm
           command: |
+            cd docker-swarm/
             docker swarm init
-            docker stack deploy -c ./docker-swarm/docker-compose.yml --with-registry-auth core
+            ACCEPT_EULA=yes docker-compose config > accept-eula.yml  
+            docker stack deploy -c ./accept-eula.yml --with-registry-auth core
       - run:
           name: Verify that services are healthy
           command: |
@@ -183,6 +188,9 @@ jobs:
             unzip -d nomad-unzip nomad.zip
             chmod +x nomad-unzip/nomad
             sudo mv nomad-unzip/nomad /usr/local/bin/
+      - run:
+          name: Accept EULA
+          command: grep -rl AcceptEULA ./nomad | xargs sed -i 's/AcceptEULA=no/AcceptEULA=yes/g'
       - run:
           name: Start Nomad server
           command: sudo nomad agent -dev -config=./nomad/nomad.hcl
