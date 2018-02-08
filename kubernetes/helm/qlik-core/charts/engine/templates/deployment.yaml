@@ -23,7 +23,10 @@ spec:
       - name: {{ .Chart.Name }}
         image: "{{ .Values.image }}"
         imagePullPolicy: {{ .Values.global.imagePullPolicy }}
-        args: ["-S LicenseServiceUrl=http://license-service:9200"]
+        args: [
+          "-S AcceptEULA={{ required "You need to accept the Qlik Core EULA in your values.yaml file." .Values.acceptEULA }}",
+          "-S LicenseServiceUrl=http://license-service:9200"
+          ]
         ports:
         - containerPort: {{ .Values.service.internalPort }}
         - containerPort: {{ .Values.service.prometheusPort }}

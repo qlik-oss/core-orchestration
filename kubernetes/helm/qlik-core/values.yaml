@@ -6,6 +6,8 @@ global:
 
 engine:
   image: qlikea/engine:12.134.0
+  # change to "yes" if you accept the Qlik Core EULA:
+  acceptEULA: ""
 
 license-service:
   image: qlikea/license-service:0.3.0
