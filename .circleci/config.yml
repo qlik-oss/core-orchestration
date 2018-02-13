@@ -25,7 +25,7 @@ jobs:
       - run:
           name: Install latest stable Kubectl
           command: |
-            curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
+            curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
       - run:
           name: Install Minikube
           command: |
@@ -33,7 +33,7 @@ jobs:
       - run:
           name: Start Minikube
           command: |
-            sudo minikube start --vm-driver=none --kubernetes-version=`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`
+            sudo minikube start --vm-driver=none --kubernetes-version=$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)
             sudo minikube update-context
       - run:
           name: Install socat (needed by helm)
