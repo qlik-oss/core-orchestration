@@ -13,7 +13,7 @@ job "engine-nomad" {
       config {
         image = "qlikea/engine:12.138.0"
         # change to 'yes' to accept the Qlik Core EULA:
-        command = "-S AcceptEULA=no -S LicenseServiceUrl=http://license-service:9200"
+        args = ["-S", "AcceptEULA=no", "-S", "LicenseServiceUrl=http://license-service:9200"]
 
         port_map {
           http = 9076
