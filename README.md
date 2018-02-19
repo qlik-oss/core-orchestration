@@ -6,7 +6,7 @@ Please note that you need to accept the Qlik Core EULA before you can run any of
 Instructions how to accept the EULA is described under each orchestration folder linked below.
 
 - [docker-swarm/](./docker-swarm/) - Folder containing Docker Swarm example.
-- [kubernetes/](./kubernetes/) - Folder containg Kubernetes examples, both "plain" and using Helm.
+- [kubernetes/](./kubernetes/) - Folder containing Kubernetes examples, both "plain" and using Helm.
 - [nomad/](./nomad/) - Folder containing Nomad example. **Experimental**.
 
 ## Contributing
