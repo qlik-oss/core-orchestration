@@ -11,7 +11,7 @@ job "engine-nomad" {
       driver = "docker"
 
       config {
-        image = "qlikea/engine:12.139.0"
+        image = "qlikea/engine:12.145.0"
         # change to 'yes' to accept the Qlik Core EULA:
         args = ["-S", "AcceptEULA=no", "-S", "LicenseServiceUrl=http://license-service:9200"]
 
