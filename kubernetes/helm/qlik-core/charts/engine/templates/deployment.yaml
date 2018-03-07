@@ -17,7 +17,7 @@ spec:
         app: {{ template "name" . }}
         release: {{ .Release.Name }}
         service: engine
-        qix-engine:
+        qix-engine: ""
     spec:
       containers:
       - name: {{ .Chart.Name }}

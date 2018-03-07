@@ -6,5 +6,4 @@ service:
   internalPort: 9076
   promName: prometheus
   prometheusPort: 9090
-global:
-  serviceType: NodePort
+  serviceType: ClusterIP
