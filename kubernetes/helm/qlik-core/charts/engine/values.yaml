@@ -7,3 +7,5 @@ service:
   promName: prometheus
   prometheusPort: 9090
   serviceType: ClusterIP
+global:
+  imagePullPolicy: IfNotPresent
