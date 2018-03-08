@@ -23,17 +23,17 @@ jobs:
             helm lint ./kubernetes/helm/qlik-core/charts/mira
             helm lint ./kubernetes/helm/qlik-core/charts/license-service
       - run:
-          name: Install latest stable Kubectl
+          name: Install Kubectl
           command: |
-            curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
+            curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/v1.9.3/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
       - run:
           name: Install Minikube
           command: |
-            curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
+            curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.25.0/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
       - run:
           name: Start Minikube
           command: |
-            sudo minikube start --vm-driver=none
+            sudo minikube start --vm-driver=none --kubernetes-version=v1.9.0 --extra-config=apiserver.Authorization.Mode=RBAC
             sudo minikube update-context
       - run:
           name: Install socat (needed by helm)
@@ -51,8 +51,11 @@ jobs:
           name: Add docker credentials as kubernetes secret
           command: sudo kubectl create secret docker-registry dockerhub --docker-username=$DOCKER_USER --docker-password=$DOCKER_PASSWORD --docker-email=$DOCKER_EMAIL
       - run:
+          name: Create service account for cluster-admin role (Helm)
+          command: sudo kubectl create -f ./kubernetes/helm/rbac-config.yaml
+      - run:
           name: Helm init and wait for tiller to be running
-          command: sudo helm init --debug; sudo kubectl rollout status -w deployment/tiller-deploy --namespace=kube-system;
+          command: sudo helm init --service-account tiller --debug; sudo kubectl rollout status -w deployment/tiller-deploy --namespace=kube-system;
       - run:
           name: Helm install qlik-core
           command: sudo helm install ./kubernetes/helm/qlik-core --set global.setType=NodePort,engine.acceptEULA=yes --name test --debug
@@ -73,6 +76,12 @@ jobs:
       - run:
           name: Helm delete qlik-core
           command: sudo helm delete test --debug
+      - run:
+          name: Delete service account for cluster-admin role (Helm)
+          command: sudo kubectl delete -f ./kubernetes/helm/rbac-config.yaml
+      - run:
+          name: Give default service account view access to Kubernetes API
+          command: sudo kubectl create -f ./kubernetes/plain/rbac-config.yaml
       - run:
           name: Accept EULA
           command: grep -rl AcceptEULA ./kubernetes/plain | xargs sed -i 's/AcceptEULA=no/AcceptEULA=yes/g'
