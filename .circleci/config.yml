@@ -23,7 +23,7 @@ jobs:
             helm lint ./kubernetes/helm/qlik-core/charts/mira
             helm lint ./kubernetes/helm/qlik-core/charts/license-service
       - run:
-          name: Install latest stable Kubectl
+          name: Install Kubectl
           command: |
             curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/v1.8.0/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
       - run:
@@ -48,11 +48,14 @@ jobs:
             ./configure --without-python --disable-all-programs --enable-nsenter --without-ncurses
             sudo make nsenter; sudo cp nsenter /usr/local/bin
       - run:
+          name: Create service account for cluster-admin role
+          command: sudo kubectl create -f ./kubernetes/helm/rbac-config.yaml
+      - run:
           name: Add docker credentials as kubernetes secret
           command: sudo kubectl create secret docker-registry dockerhub --docker-username=$DOCKER_USER --docker-password=$DOCKER_PASSWORD --docker-email=$DOCKER_EMAIL
       - run:
           name: Helm init and wait for tiller to be running
-          command: sudo helm init --debug; sudo kubectl rollout status -w deployment/tiller-deploy --namespace=kube-system;
+          command: sudo helm init --service-account tiller --debug; sudo kubectl rollout status -w deployment/tiller-deploy --namespace=kube-system;
       - run:
           name: Helm install qlik-core
           command: sudo helm install ./kubernetes/helm/qlik-core --set global.setType=NodePort,engine.acceptEULA=yes --name test --debug
