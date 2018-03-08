@@ -8,14 +8,12 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
-  type: {{ .Values.global.serviceType }}
+  type: {{ default "ClusterIP" .Values.service.serviceType }}
   ports:
     - port: {{ default 9076 .Values.service.externalPort }}
-      targetPort: {{ default 9076 .Values.service.internalPort }}
       protocol: TCP
       name: {{ .Values.service.name }}
     - port: {{ default 9090 .Values.service.prometheusPort }}
-      targetPort: {{ default 9090 .Values.service.prometheusPort }}
       protocol: TCP
       name: {{ .Values.service.promName }}
   selector:
