@@ -25,7 +25,7 @@ jobs:
       - run:
           name: Install Kubectl
           command: |
-            curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/v1.9.0/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
+            curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/v1.9.3/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
       - run:
           name: Install Minikube
           command: |
@@ -80,7 +80,7 @@ jobs:
           name: Delete service account for cluster-admin role (Helm)
           command: sudo kubectl delete -f ./kubernetes/helm/rbac-config.yaml
       - run:
-          name: Create service account for cluster-admin role (Plain)
+          name: Give default service account view access to Kubernetes API
           command: sudo kubectl create -f ./kubernetes/plain/rbac-config.yaml
       - run:
           name: Accept EULA
