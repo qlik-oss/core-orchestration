@@ -25,7 +25,7 @@ jobs:
       - run:
           name: Install Kubectl
           command: |
-            curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/v1.8.0/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
+            curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/v1.9.0/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
       - run:
           name: Install Minikube
           command: |
@@ -33,7 +33,7 @@ jobs:
       - run:
           name: Start Minikube
           command: |
-            sudo minikube start --vm-driver=none --kubernetes-version=v1.8.0 --extra-config=apiserver.Authorization.Mode=RBAC
+            sudo minikube start --vm-driver=none --kubernetes-version=v1.9.0 --extra-config=apiserver.Authorization.Mode=RBAC
             sudo minikube update-context
       - run:
           name: Install socat (needed by helm)
@@ -48,11 +48,11 @@ jobs:
             ./configure --without-python --disable-all-programs --enable-nsenter --without-ncurses
             sudo make nsenter; sudo cp nsenter /usr/local/bin
       - run:
-          name: Create service account for cluster-admin role
-          command: sudo kubectl create -f ./kubernetes/helm/rbac-config.yaml
-      - run:
           name: Add docker credentials as kubernetes secret
           command: sudo kubectl create secret docker-registry dockerhub --docker-username=$DOCKER_USER --docker-password=$DOCKER_PASSWORD --docker-email=$DOCKER_EMAIL
+      - run:
+          name: Create service account for cluster-admin role (Helm)
+          command: sudo kubectl create -f ./kubernetes/helm/rbac-config.yaml
       - run:
           name: Helm init and wait for tiller to be running
           command: sudo helm init --service-account tiller --debug; sudo kubectl rollout status -w deployment/tiller-deploy --namespace=kube-system;
@@ -76,6 +76,12 @@ jobs:
       - run:
           name: Helm delete qlik-core
           command: sudo helm delete test --debug
+      - run:
+          name: Delete service account for cluster-admin role (Helm)
+          command: sudo kubectl delete -f ./kubernetes/helm/rbac-config.yaml
+      - run:
+          name: Create service account for cluster-admin role (Plain)
+          command: sudo kubectl create -f ./kubernetes/plain/rbac-config.yaml
       - run:
           name: Accept EULA
           command: grep -rl AcceptEULA ./kubernetes/plain | xargs sed -i 's/AcceptEULA=no/AcceptEULA=yes/g'
