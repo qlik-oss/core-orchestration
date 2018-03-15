@@ -43,7 +43,7 @@ jobs:
       - run:
           name: Install nsenter (needed by helm)
           command: |
-            cd /tmp; curl https://www.kernel.org/pub/linux/utils/util-linux/v2.25/util-linux-2.25.tar.gz | tar -zxf-; cd util-linux-2.25;
+            cd /tmp; curl https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.25/util-linux-2.25.tar.gz | tar -zxf-; cd util-linux-2.25;
             sudo apt-get install autopoint autoconf libtool automake
             ./configure --without-python --disable-all-programs --enable-nsenter --without-ncurses
             sudo make nsenter; sudo cp nsenter /usr/local/bin
