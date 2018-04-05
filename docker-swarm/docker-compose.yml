@@ -12,7 +12,7 @@ services:
         constraints: [node.role == manager]
 
   qix-engine:
-    image: qlikea/engine:12.157.0
+    image: qlikea/engine:community_version
     deploy:
       replicas: 2
     command: -S AcceptEULA=${ACCEPT_EULA} -S LicenseServiceUrl=http://license-service:9200

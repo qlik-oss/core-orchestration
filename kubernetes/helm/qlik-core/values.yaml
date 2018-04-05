@@ -5,7 +5,7 @@ global:
   serviceType: LoadBalancer
 
 engine:
-  image: qlikea/engine:12.157.0
+  image: qlikea/engine:community_version
   # change to "yes" if you accept the Qlik Core EULA:
   acceptEULA: ""
 
