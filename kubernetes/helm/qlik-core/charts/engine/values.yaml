@@ -1,5 +1,5 @@
 replicaCount: 2
-image: qlikea/engine:12.157.0
+image: qlikea/engine:community_version
 service:
   name: qix
   externalPort: 9076
