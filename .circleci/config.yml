@@ -48,9 +48,6 @@ jobs:
             ./configure --without-python --disable-all-programs --enable-nsenter --without-ncurses
             sudo make nsenter; sudo cp nsenter /usr/local/bin
       - run:
-          name: Add docker credentials as kubernetes secret
-          command: sudo kubectl create secret docker-registry dockerhub --docker-username=$DOCKER_USER --docker-password=$DOCKER_PASSWORD --docker-email=$DOCKER_EMAIL
-      - run:
           name: Create service account for cluster-admin role (Helm)
           command: sudo kubectl create -f ./kubernetes/helm/rbac-config.yaml
       - run:
@@ -113,9 +110,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Login to Docker
-          command: docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD"
-      - run:
           name: Spin up core in a local docker swarm
           command: |
             cd docker-swarm/
@@ -176,9 +170,6 @@ jobs:
     working_directory: ~/core
     steps:
       - checkout
-      - run:
-          name: Login to Docker
-          command: docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD"
       - run:
           name: Install Consul
           command: |

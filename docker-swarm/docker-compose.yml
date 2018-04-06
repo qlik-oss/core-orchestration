@@ -23,6 +23,6 @@ services:
       qix-engine: ""
 
   license-service:
-    image: qlikcore/license-service:0.3.0
+    image: qlikcore/licenses:0.0.1
     ports:
       - 9200:9200
