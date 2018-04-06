@@ -11,7 +11,7 @@ job "license-service-nomad" {
       driver = "docker"
 
       config {
-        image = "qlikea/license-service:0.3.0"
+        image = "qlikcore/licenses:0.0.1"
         port_map {
           http = 9200
         }

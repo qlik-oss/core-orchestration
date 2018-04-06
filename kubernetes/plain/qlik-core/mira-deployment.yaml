@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: mira
-        image: "qlikea/mira:0.1.0"
+        image: "qlikcore/mira:0.1.0"
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9100
@@ -24,5 +24,3 @@ spec:
         image: gcr.io/google_containers/kubectl:v0.18.0-350-gfb3305edcf6c1a
         args: [ "proxy", "-p", "8001" ]
         imagePullPolicy: IfNotPresent
-      imagePullSecrets:
-      - name: dockerhub
