@@ -1,6 +1,6 @@
 # Qlik Core Orchestration Examples
 
-[![CircleCI](https://circleci.com/gh/qlik-ea/core-orchestration.svg?style=shield&circle-token=2750d5c49c0348549db4f4518aa2e85da2822452)](https://circleci.com/gh/qlik-ea/core-orchestration)
+[![CircleCI](https://circleci.com/gh/qlik-oss/core-orchestration.svg?style=shield)](https://circleci.com/gh/qlik-oss/core-orchestration)
 
 Please note that you need to accept the Qlik Core EULA before you can run any of these examples.
 Instructions how to accept the EULA is described under each orchestration folder linked below.

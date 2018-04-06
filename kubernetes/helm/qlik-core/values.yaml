@@ -5,14 +5,14 @@ global:
   serviceType: LoadBalancer
 
 engine:
-  image: qlikea/engine:12.157.0
+  image: qlikcore/engine:12.160.0
   # change to "yes" if you accept the Qlik Core EULA:
   acceptEULA: ""
 
 license-service:
-  image: qlikea/license-service:0.3.0
+  image: qlikcore/license-service:0.3.0
 
 mira:
-  image: qlikea/mira:0.1.0
+  image: qlikcore/mira:0.1.0
   sideCartContainerName: kubectl
   sideCartContainerImage: gcr.io/google_containers/kubectl:v0.18.0-350-gfb3305edcf6c1a

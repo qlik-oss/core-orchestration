@@ -1,6 +1,6 @@
 replicaCount: 1
 miraMode: kubernetes
-image: qlikea/mira:0.1.0
+image: qlikcore/mira:0.1.0
 sideCartContainerName: kubectl
 sideCartContainerArgs: "[ \"proxy\", \"-p\", \"8001\" ]"
 sideCartContainerImage: gcr.io/google_containers/kubectl:v0.18.0-350-gfb3305edcf6c1a
