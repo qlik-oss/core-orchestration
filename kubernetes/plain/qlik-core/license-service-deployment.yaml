@@ -17,5 +17,3 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9200
-      imagePullSecrets:
-      - name: dockerhub

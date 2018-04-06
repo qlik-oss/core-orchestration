@@ -21,5 +21,3 @@ spec:
         imagePullPolicy: {{ .Values.global.imagePullPolicy }}
         ports:
         - containerPort: {{ default 9200 .Values.service.internalPort }}
-      imagePullSecrets:
-      - name: {{ .Values.global.imagePullSecrets }}
