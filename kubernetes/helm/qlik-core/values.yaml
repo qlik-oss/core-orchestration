@@ -9,7 +9,7 @@ engine:
   acceptEULA: ""
 
 license-service:
-  image: qlikcore/license-service:0.3.0
+  image: qlikcore/licenses:0.0.1
 
 mira:
   image: qlikcore/mira:0.1.0
