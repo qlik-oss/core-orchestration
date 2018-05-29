@@ -198,7 +198,7 @@ jobs:
           name: Set LEF environment variables for license service
           command: |
             grep -rl LICENSES_SERIAL_NBR ./nomad | xargs sed -i "s/LICENSES_SERIAL_NBR = \"\"/LICENSES_SERIAL_NBR = \"${LICENSES_SERIAL_NBR}\"/g"
-            grep -rl LICENSES_CONTROL_NBR ./nomad | xargs sed -i "s/LICENSES_CONTROL_NBR = \"\"/LICENSES_CONTROL_NBR = \"${LICENSES_CONTROL_NBR}\"/g'
+            grep -rl LICENSES_CONTROL_NBR ./nomad | xargs sed -i "s/LICENSES_CONTROL_NBR = \"\"/LICENSES_CONTROL_NBR = \"${LICENSES_CONTROL_NBR}\"/g"
       - run:
           name: Start Nomad server
           command: sudo nomad agent -dev -config=./nomad/nomad.hcl
