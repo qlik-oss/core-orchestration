@@ -64,7 +64,7 @@ jobs:
             curl -fs "$MIRA_URL/v1/health"
             # Check license service health
             LICENSE_SERVICE_URL=$(sudo minikube service test-license-service --url)
-            curl -fs "$LICENSE_SERVICE_URL/v1/health"
+            curl -fs "$LICENSE_SERVICE_URL/health"
       - run:
           name: Verify number of QIX Engines found
           command: |
