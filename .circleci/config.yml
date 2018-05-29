@@ -117,7 +117,7 @@ jobs:
           command: |
             cd docker-swarm/
             docker swarm init
-            ACCEPT_EULA=yes LICENSES_SERIAL_NBR=$LICENSES_SERIAL_NBR LICENSES_CONTROL_NBR=$LICENSES_CONTROL_NB docker-compose config > accept-eula.yml
+            ACCEPT_EULA=yes LICENSES_SERIAL_NBR=$LICENSES_SERIAL_NBR LICENSES_CONTROL_NBR=$LICENSES_CONTROL_NBR docker-compose config > accept-eula.yml
             docker stack deploy -c ./accept-eula.yml core
       - run:
           name: Verify that services are healthy
