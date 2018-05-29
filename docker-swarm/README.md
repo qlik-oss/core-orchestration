@@ -5,7 +5,7 @@
 You accept the EULA by starting the compose file with:
 
 ```bash
-ACCEPT_EULA=yes docker-compose up -d
+ACCEPT_EULA=yes docker stack deploy -c ./docker-swarm/docker-compose.yml qlik-core
 ```
 
 ## License
