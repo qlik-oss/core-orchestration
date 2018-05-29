@@ -23,6 +23,9 @@ services:
       qix-engine: ""
 
   license-service:
-    image: qlikcore/licenses:0.0.1
+    image: qlikcore/licenses:experimental
     ports:
       - 9200:9200
+    environment:
+      - LICENSES_SERIAL_NBR
+      - LICENSES_CONTROL_NBR
