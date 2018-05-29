@@ -192,7 +192,7 @@ jobs:
           name: Accept EULA
           command: grep -rl AcceptEULA ./nomad | xargs sed -i 's/AcceptEULA=no/AcceptEULA=yes/g'
       - run:
-          name: Set LEF environment variables for license server
+          name: Set LEF environment variables for license service
           command: |
             grep -rl LICENSES_SERIAL_NBR ./nomad | xargs sed -i 's/LICENSES_SERIAL_NBR = ""/LICENSES_SERIAL_NBR = "$LICENSES_SERIAL_NBR"/g'
             grep -rl LICENSES_CONTROL_NBR ./nomad | xargs sed -i 's/LICENSES_CONTROL_NBR = ""/LICENSES_CONTROL_NBR = "$LICENSES_CONTROL_NBR"/g'
