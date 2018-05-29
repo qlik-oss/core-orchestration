@@ -18,7 +18,7 @@ jobs:
       - run:
           name: Lint charts
           command: |
-            helm lint ./kubernetes/helm/qlik-core --set engine.acceptEULA=yes
+            helm lint ./kubernetes/helm/qlik-core --set engine.acceptEULA=yes,license-service.LICENSES_SERIAL_NBR=$LICENSES_SERIAL_NBR,license-service.LICENSES_CONTROL_NBR=$LICENSES_CONTROL_NBR
             helm lint ./kubernetes/helm/qlik-core/charts/engine --set acceptEULA=yes
             helm lint ./kubernetes/helm/qlik-core/charts/mira
             helm lint ./kubernetes/helm/qlik-core/charts/license-service --set LICENSES_SERIAL_NBR=$LICENSES_SERIAL_NBR,LICENSES_CONTROL_NBR=$LICENSES_CONTROL_NBR
