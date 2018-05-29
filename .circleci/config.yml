@@ -137,7 +137,7 @@ jobs:
             # Verify License-Service health
             RETRIES=0
             while (( LICENSE_STATUS != "200" && RETRIES != 30 )); do
-              LICENSE_STATUS=$(curl -s -o /dev/null -w ''%{http_code}'' http://localhost:9200/v1/health)
+              LICENSE_STATUS=$(curl -s -o /dev/null -w ''%{http_code}'' http://localhost:9200/health)
               sleep 2
               RETRIES=$((RETRIES + 1 ))
             done
