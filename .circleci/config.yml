@@ -55,7 +55,7 @@ jobs:
           command: sudo helm init --service-account tiller --debug; sudo kubectl rollout status -w deployment/tiller-deploy --namespace=kube-system;
       - run:
           name: Helm install qlik-core
-          command: sudo helm install ./kubernetes/helm/qlik-core --set global.setType=NodePort,engine.acceptEULA=yes,--set license-service.LICENSES_SERIAL_NBR=$LICENSES_SERIAL_NBR,license-service.LICENSES_CONTROL_NBR=$LICENSES_CONTROL_NBR --name test --debug
+          command: sudo helm install ./kubernetes/helm/qlik-core --set global.setType=NodePort,engine.acceptEULA=yes,license-service.LICENSES_SERIAL_NBR=$LICENSES_SERIAL_NBR,license-service.LICENSES_CONTROL_NBR=$LICENSES_CONTROL_NBR --name test --debug
       - run:
           name: Check health of services
           command: |
