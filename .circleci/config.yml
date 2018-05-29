@@ -55,7 +55,7 @@ jobs:
           command: sudo helm init --service-account tiller --debug; sudo kubectl rollout status -w deployment/tiller-deploy --namespace=kube-system;
       - run:
           name: Helm install qlik-core
-          command: sudo helm install ./kubernetes/helm/qlik-core --set global.setType=NodePort,engine.acceptEULA=yes --name test --debug
+          command: sudo helm install ./kubernetes/helm/qlik-core --set global.setType=NodePort,engine.acceptEULA=yes,--set license-service.LICENSES_SERIAL_NBR=$LICENSES_SERIAL_NBR,--set license-service.LICENSES_CONTROL_NBR=$LICENSES_CONTROL_NBR --name test --debug
       - run:
           name: Check health of services
           command: |
@@ -82,6 +82,9 @@ jobs:
       - run:
           name: Accept EULA
           command: grep -rl AcceptEULA ./kubernetes/plain | xargs sed -i 's/AcceptEULA=no/AcceptEULA=yes/g'
+      - run:
+          name: Inject license details
+          command: sudo kubectl create configmap license-data --from-literal LICENSES_SERIAL_NBR=$LICENSES_SERIAL_NBR --from-literal LICENSES_CONTROL_NBR=$LICENSES_CONTROL_NBR
       - run:
           name: Kubernetes plain qlik-core
           command: sudo kubectl create -f ./kubernetes/plain/qlik-core/
@@ -114,7 +117,7 @@ jobs:
           command: |
             cd docker-swarm/
             docker swarm init
-            ACCEPT_EULA=yes docker-compose config > accept-eula.yml
+            ACCEPT_EULA=yes LICENSES_SERIAL_NBR=$LICENSES_SERIAL_NBR LICENSES_CONTROL_NBR=$LICENSES_CONTROL_NB docker-compose config > accept-eula.yml
             docker stack deploy -c ./accept-eula.yml core
       - run:
           name: Verify that services are healthy
