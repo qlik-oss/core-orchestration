@@ -11,7 +11,7 @@ job "mira-nomad" {
       driver = "docker"
 
       config {
-        image = "qlikcore/mira:0.2.0"
+        image = "qlikcore/mira:0.3.0"
         dns_search_domains = ["service.dc1.consul"]
         # Use docker bridge as dns server
         dns_servers = ["172.17.0.1", "8.8.8.8"]
@@ -41,7 +41,7 @@ job "mira-nomad" {
         port = "http"
         check {
           type = "http"
-          path = "/v1/health"
+          path = "/health"
           interval = "30s"
           timeout  = "2s"
         }

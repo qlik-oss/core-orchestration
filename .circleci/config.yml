@@ -61,7 +61,7 @@ jobs:
           command: |
             # Check mira health
             MIRA_URL=$(sudo minikube service test-mira --url)
-            curl -fs "$MIRA_URL/v1/health"
+            curl -fs "$MIRA_URL/health"
             # Check license service health
             LICENSE_SERVICE_URL=$(sudo minikube service test-license-service --url)
             curl -fs "$LICENSE_SERVICE_URL/health"
@@ -93,7 +93,7 @@ jobs:
           command: |
             # Check mira health
             MIRA_URL=$(sudo minikube service mira --url)
-            curl -fs "$MIRA_URL/v1/health"
+            curl -fs "$MIRA_URL/health"
             # Check license service health
             LICENSE_SERVICE_URL=$(sudo minikube service license-service --url)
             curl -fs "$LICENSE_SERVICE_URL/health"
@@ -127,7 +127,7 @@ jobs:
             # Verify Mira health
             RETRIES=0
             while (( MIRA_STATUS != "200" && RETRIES != 30 )); do
-              MIRA_STATUS=$(curl -s -o /dev/null -w ''%{http_code}'' http://localhost:9100/v1/health)
+              MIRA_STATUS=$(curl -s -o /dev/null -w ''%{http_code}'' http://localhost:9100/health)
               sleep 2
               RETRIES=$((RETRIES + 1 ))
             done
@@ -226,7 +226,7 @@ jobs:
 
             # Check Mira health
             MIRA_URL=$(sudo docker port "$CONTAINER_ID" 9100)
-            curl -fs "$MIRA_URL/v1/health"
+            curl -fs "$MIRA_URL/health"
 
             # Check that Mira returns correct number of qix engines
             ./.circleci/verify_qix_engines.sh $MIRA_URL
