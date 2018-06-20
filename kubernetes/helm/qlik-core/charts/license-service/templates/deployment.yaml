@@ -19,5 +19,10 @@ spec:
       - name: {{ .Chart.Name }}
         image: "{{ .Values.image }}"
         imagePullPolicy: {{ .Values.global.imagePullPolicy }}
+        env:
+        - name: LICENSES_SERIAL_NBR
+          value: "{{required "You need to specify your license serial number." .Values.LICENSES_SERIAL_NBR }}"
+        - name: LICENSES_CONTROL_NBR
+          value: "{{required "You need to specify your license control number." .Values.LICENSES_CONTROL_NBR }}"
         ports:
         - containerPort: {{ default 9200 .Values.service.internalPort }}
