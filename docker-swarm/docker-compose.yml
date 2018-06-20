@@ -2,7 +2,7 @@ version: "3.0"
 
 services:
   mira:
-    image: qlikcore/mira:0.3.0
+    image: qlikcore/mira:0.3.1
     ports:
       - 9100:9100
     volumes:
@@ -12,10 +12,10 @@ services:
         constraints: [node.role == manager]
 
   qix-engine:
-    image: qlikcore/engine:12.171.0
+    image: qlikcore/engine:12.190.0
     deploy:
       replicas: 2
-    command: -S AcceptEULA=${ACCEPT_EULA} -S LicenseServiceUrl=http://license-service:9200
+    command: -S AcceptEULA=${ACCEPT_EULA} -S LicenseServiceUrl=http://license-service:9200 -S DisableStartupLicenseCheck=1
     ports:
       - 9076:9076
       - 9090:9090
@@ -23,7 +23,7 @@ services:
       qix-engine: ""
 
   license-service:
-    image: qlikcore/licenses:experimental
+    image: qlikcore/licenses:1.0.1
     ports:
       - 9200:9200
     environment:
