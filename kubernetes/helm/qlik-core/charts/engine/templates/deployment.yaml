@@ -25,8 +25,7 @@ spec:
         imagePullPolicy: {{ .Values.global.imagePullPolicy }}
         args: [
           "-S","AcceptEULA={{ required "You need to accept the Qlik Core EULA in your values.yaml file." .Values.acceptEULA }}",
-          "-S","LicenseServiceUrl=http://{{ .Release.Name }}-license-service:9200",
-          "-S","DisableStartupLicenseCheck=1"
+          "-S","LicenseServiceUrl=http://{{ .Release.Name }}-license-service:9200"
           ]
         ports:
         - containerPort: {{ .Values.service.internalPort }}
