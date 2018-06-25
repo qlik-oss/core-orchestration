@@ -12,10 +12,10 @@ services:
         constraints: [node.role == manager]
 
   qix-engine:
-    image: qlikcore/engine:12.190.0
+    image: qlikcore/engine:12.193.0
     deploy:
       replicas: 2
-    command: -S AcceptEULA=${ACCEPT_EULA} -S LicenseServiceUrl=http://license-service:9200 -S DisableStartupLicenseCheck=1
+    command: -S AcceptEULA=${ACCEPT_EULA} -S LicenseServiceUrl=http://license-service:9200
     ports:
       - 9076:9076
       - 9090:9090
