@@ -1,5 +1,5 @@
 replicaCount: 1
-image: qlikcore/licenses:1.0.2
+image: qlikcore/licenses:1.0.5
 service:
   name: http
   externalPort: 9200
