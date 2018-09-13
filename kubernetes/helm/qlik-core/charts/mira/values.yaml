@@ -1,9 +1,6 @@
 replicaCount: 1
 miraMode: kubernetes
-image: qlikcore/mira:0.4.0
-sideCartContainerName: kubectl
-sideCartContainerArgs: "[ \"proxy\", \"-p\", \"8001\" ]"
-sideCartContainerImage: lachlanevenson/k8s-kubectl:v1.9.10
+image: qlikcore/mira:1.0.0
 service:
   name: http
   externalPort: 9100
