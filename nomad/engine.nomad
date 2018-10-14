@@ -11,7 +11,7 @@ job "engine-nomad" {
       driver = "docker"
 
       config {
-        image = "qlikcore/engine:12.248.0"
+        image = "qlikcore/engine:12.251.0"
         # change to 'yes' to accept the Qlik Core EULA:
         args = ["-S", "AcceptEULA=no", "-S", "LicenseServiceUrl=http://license-service:9200"]
 
