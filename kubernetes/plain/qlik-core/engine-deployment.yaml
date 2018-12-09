@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: engine
-        image: "qlikcore/engine:12.277.0"
+        image: "qlikcore/engine:12.287.0"
         args: [
           "-S", "AcceptEULA=no", # change to 'yes' if you accept the Qlik Core EULA
           "-S", "LicenseServiceUrl=http://license-service:9200"
