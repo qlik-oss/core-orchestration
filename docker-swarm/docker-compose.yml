@@ -2,7 +2,8 @@ version: "3.0"
 
 services:
   mira:
-    image: qlikcore/mira:1.0.0
+    image: qlikcore/mira:2.0.0
+    user: root
     ports:
       - 9100:9100
     volumes:
