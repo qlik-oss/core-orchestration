@@ -15,4 +15,4 @@ license-service:
   LICENSES_CONTROL_NBR: ""
 
 mira:
-  image: qlikcore/mira:1.0.0
+  image: qlikcore/mira:2.0.0
