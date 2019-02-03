@@ -1,6 +1,6 @@
 replicaCount: 1
 miraMode: kubernetes
-image: qlikcore/mira:1.0.0
+image: qlikcore/mira:2.0.0
 service:
   name: http
   externalPort: 9100
