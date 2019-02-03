@@ -1,5 +1,5 @@
 replicaCount: 2
-image: qlikcore/engine:12.300.0
+image: qlikcore/engine:12.311.0
 service:
   name: qix
   externalPort: 9076
