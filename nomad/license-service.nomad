@@ -11,7 +11,7 @@ job "license-service-nomad" {
       driver = "docker"
 
       config {
-        image = "qlikcore/licenses:1.8.2"
+        image = "qlikcore/licenses:1.1.4"
         port_map {
           http = 9200
         }
