@@ -9,7 +9,7 @@ engine:
   acceptEULA: ""
 
 license-service:
-  image: qlikcore/licenses:1.8.2
+  image: qlikcore/licenses:1.1.4
   # Add your license serial and control number here
   LICENSES_SERIAL_NBR: ""
   LICENSES_CONTROL_NBR: ""
