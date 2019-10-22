@@ -20,9 +20,7 @@ spec:
         image: "{{ .Values.image }}"
         imagePullPolicy: {{ .Values.global.imagePullPolicy }}
         env:
-        - name: LICENSES_SERIAL_NBR
-          value: "{{required "You need to specify your license serial number." .Values.LICENSES_SERIAL_NBR }}"
-        - name: LICENSES_CONTROL_NBR
-          value: "{{required "You need to specify your license control number." .Values.LICENSES_CONTROL_NBR }}"
+        - name: LICENSE_KEY
+          value: "{{required "You need to specify your license key." .Values.LICENSE_KEY }}"
         ports:
         - containerPort: {{ default 9200 .Values.service.internalPort }}

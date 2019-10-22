@@ -18,13 +18,8 @@ spec:
         ports:
         - containerPort: 9200
         env:
-        - name: LICENSES_SERIAL_NBR
+        - name: LICENSE_KEY
           valueFrom:
             configMapKeyRef:
               name: license-data
-              key: LICENSES_SERIAL_NBR
-        - name: LICENSES_CONTROL_NBR
-          valueFrom:
-            configMapKeyRef:
-              name: license-data
-              key: LICENSES_CONTROL_NBR
+              key: LICENSE_KEY

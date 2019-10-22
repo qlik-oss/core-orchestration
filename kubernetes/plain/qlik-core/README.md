@@ -10,5 +10,5 @@ then run the example.
 To supply your license before running the example you run the command:
 
 ```bash
-kubectl create configmap license-data --from-literal LICENSES_SERIAL_NBR=YOUR-LICENSE-SERIAL-NBR --from-literal LICENSES_CONTROL_NBR=YOUR-LICENSE-CONTROL-NBR
+kubectl create configmap license-data --from-literal LICENSE_KEY=YOUR-LICENSE-KEY
 ```
