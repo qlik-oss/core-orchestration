@@ -18,10 +18,10 @@ jobs:
       - run:
           name: Lint charts
           command: |
-            helm lint ./kubernetes/helm/qlik-core --set engine.acceptEULA=yes --set-string license-service.LICENSES_SERIAL_NBR=$LICENSES_SERIAL_NBR,license-service.LICENSES_CONTROL_NBR=$LICENSES_CONTROL_NBR
+            helm lint ./kubernetes/helm/qlik-core --set engine.acceptEULA=yes --set-string license-service.LICENSE_KEY=$LICENSE_KEY
             helm lint ./kubernetes/helm/qlik-core/charts/engine --set acceptEULA=yes
             helm lint ./kubernetes/helm/qlik-core/charts/mira
-            helm lint ./kubernetes/helm/qlik-core/charts/license-service --set-string  LICENSES_SERIAL_NBR=$LICENSES_SERIAL_NBR,LICENSES_CONTROL_NBR=$LICENSES_CONTROL_NBR
+            helm lint ./kubernetes/helm/qlik-core/charts/license-service --set-string  LICENSE_KEY=$LICENSE_KEY
       - run:
           name: Install Kubectl
           command: |
@@ -55,7 +55,7 @@ jobs:
           command: sudo helm init --service-account tiller --debug; sudo kubectl rollout status -w deployment/tiller-deploy --namespace=kube-system;
       - run:
           name: Helm install qlik-core
-          command: sudo helm install ./kubernetes/helm/qlik-core --set global.setType=NodePort,engine.acceptEULA=yes --set-string license-service.LICENSES_SERIAL_NBR=$LICENSES_SERIAL_NBR,license-service.LICENSES_CONTROL_NBR=$LICENSES_CONTROL_NBR --name test --debug
+          command: sudo helm install ./kubernetes/helm/qlik-core --set global.setType=NodePort,engine.acceptEULA=yes --set-string license-service.LICENSE_KEY=$LICENSE_KEY --name test --debug
       - run:
           name: Check health of services
           command: |
@@ -84,7 +84,7 @@ jobs:
           command: grep -rl AcceptEULA ./kubernetes/plain | xargs sed -i 's/AcceptEULA=no/AcceptEULA=yes/g'
       - run:
           name: Inject license details
-          command: sudo kubectl create configmap license-data --from-literal LICENSES_SERIAL_NBR=$LICENSES_SERIAL_NBR --from-literal LICENSES_CONTROL_NBR=$LICENSES_CONTROL_NBR
+          command: sudo kubectl create configmap license-data --from-literal LICENSE_KEY=$LICENSE_KEY
       - run:
           name: Kubernetes plain qlik-core
           command: sudo kubectl create -f ./kubernetes/plain/qlik-core/
@@ -117,7 +117,7 @@ jobs:
           command: |
             cd docker-swarm/
             docker swarm init
-            ACCEPT_EULA=yes LICENSES_SERIAL_NBR=$LICENSES_SERIAL_NBR LICENSES_CONTROL_NBR=$LICENSES_CONTROL_NBR docker-compose config > accept-eula.yml
+            ACCEPT_EULA=yes LICENSE_KEY=$LICENSE_KEY docker-compose config > accept-eula.yml
             docker stack deploy -c ./accept-eula.yml core
       - run:
           name: Verify that services are healthy
@@ -197,8 +197,7 @@ jobs:
       - run:
           name: Set LEF environment variables for license service
           command: |
-            grep -rl LICENSES_SERIAL_NBR ./nomad | xargs sed -i "s/LICENSES_SERIAL_NBR = \"\"/LICENSES_SERIAL_NBR = \"${LICENSES_SERIAL_NBR}\"/g"
-            grep -rl LICENSES_CONTROL_NBR ./nomad | xargs sed -i "s/LICENSES_CONTROL_NBR = \"\"/LICENSES_CONTROL_NBR = \"${LICENSES_CONTROL_NBR}\"/g"
+            grep -rl LICENSE_KEY ./nomad | xargs sed -i "s/LICENSE_KEY = \"\"/LICENSE_KEY = \"${LICENSE_KEY}\"/g"
       - run:
           name: Start Nomad server
           command: sudo nomad agent -dev -config=./nomad/nomad.hcl
