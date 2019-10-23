@@ -18,8 +18,7 @@ job "license-service-nomad" {
       }
 
       env {
-        LICENSES_SERIAL_NBR = ""
-        LICENSES_CONTROL_NBR = ""
+        LICENSE_KEY = ""
       }
 
       resources {

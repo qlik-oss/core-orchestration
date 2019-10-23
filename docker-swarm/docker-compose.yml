@@ -28,5 +28,4 @@ services:
     ports:
       - 9200:9200
     environment:
-      - LICENSES_SERIAL_NBR
-      - LICENSES_CONTROL_NBR
+      - LICENSE_KEY

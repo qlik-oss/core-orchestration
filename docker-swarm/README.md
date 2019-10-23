@@ -10,4 +10,4 @@ ACCEPT_EULA=yes docker stack deploy -c ./docker-swarm/docker-compose.yml qlik-co
 
 ## License
 
-You have to set your `LICENSES_SERIAL_NBR` and `LICENSES_CONTROL_NBR` environment variables for your license.
+You have to set your `LICENSE_KEY` environment variable for your license.

@@ -10,9 +10,8 @@ engine:
 
 license-service:
   image: qlikcore/licenses:1.37.0
-  # Add your license serial and control number here
-  LICENSES_SERIAL_NBR: ""
-  LICENSES_CONTROL_NBR: ""
+  # Add your license key here
+  LICENSE_KEY: ""
 
 mira:
   image: qlikcore/mira:2.0.0

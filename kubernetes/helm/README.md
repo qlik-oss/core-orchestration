@@ -7,4 +7,4 @@ You accept the EULA by running `helm install ./qlik-core --set engine.acceptEULA
 
 ## License
 
-You also have to set your `LICENSES_SERIAL_NBR` and `LICENSES_CONTROL_NBR` for your license in the [values.yaml](./qlik-core/values.yaml) file.
+You also have to set your `LICENSE_KEY` for your license in the [values.yaml](./qlik-core/values.yaml) file.
