@@ -4,12 +4,12 @@ global:
   serviceType: LoadBalancer
 
 engine:
-  image: qlikcore/engine:12.515.0
+  image: qlikcore/engine:12.538.0
   # change to "yes" if you accept the Qlik Core EULA:
   acceptEULA: ""
 
 license-service:
-  image: qlikcore/licenses:1.37.0
+  image: qlikcore/licenses:3.5.0
   # Add your license key here
   LICENSE_KEY: ""
 
