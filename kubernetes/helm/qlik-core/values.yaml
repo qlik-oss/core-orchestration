@@ -14,4 +14,4 @@ license-service:
   LICENSE_KEY: ""
 
 mira:
-  image: qlikcore/mira:2.0.0
+  image: qlikcore/mira:3.0.0
